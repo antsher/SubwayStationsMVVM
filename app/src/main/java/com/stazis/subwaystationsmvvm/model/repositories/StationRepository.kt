@@ -4,7 +4,7 @@ import com.stazis.subwaystationsmvvm.model.entities.Station
 
 interface StationRepository {
 
-    fun getStations(): List<Station>
-    fun getStationDescription(name: String): String
-    fun updateStationDescription(name: String, description: String): String
+    suspend fun getStations(): List<Station>
+    suspend fun getStationDescription(name: String): String
+    suspend fun updateStationDescription(name: String, description: String): String
 }

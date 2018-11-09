@@ -3,7 +3,11 @@ package com.stazis.subwaystationsmvvm.presentation.view.general
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.transaction
+import com.google.android.gms.maps.model.LatLng
+import com.stazis.subwaystationsmvvm.model.entities.Station
+import com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment
 import com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment
+import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment
 
 class NavigationController(activity: GeneralActivity, private val containerId: Int) {
 
@@ -15,19 +19,19 @@ class NavigationController(activity: GeneralActivity, private val containerId: I
         }
     }
 
-//    fun navigateToStationList() = ifCurrentFragmentIsNot(StationListFragment::class.java) {
-//        fragmentManager.transaction(allowStateLoss = true) {
-//            replace(containerId, StationListFragment())
-//        }
-//    }
+    fun navigateToStationList() = ifCurrentFragmentIsNot(StationListFragment::class.java) {
+        fragmentManager.transaction(allowStateLoss = true) {
+            replace(containerId, StationListFragment())
+        }
+    }
 
-//    fun navigateToStationPager(stations: List<Station>, location: LatLng) =
-//        ifCurrentFragmentIsNot(StationPagerFragment::class.java) {
-//            fragmentManager.transaction(allowStateLoss = true) {
-//                add(containerId, StationPagerFragment.newInstance(stations, location))
-//                addToBackStack(null)
-//            }
-//        }
+    fun navigateToStationPager(stations: List<Station>, location: LatLng) =
+        ifCurrentFragmentIsNot(StationPagerFragment::class.java) {
+            fragmentManager.transaction(allowStateLoss = true) {
+                add(containerId, StationPagerFragment.newInstance(stations, location))
+                addToBackStack(null)
+            }
+        }
 
     private inline fun ifCurrentFragmentIsNot(fragmentClass: Class<out Fragment>, f: () -> Unit) {
         if (!fragmentClass.isInstance(getCurrentFragment())) {

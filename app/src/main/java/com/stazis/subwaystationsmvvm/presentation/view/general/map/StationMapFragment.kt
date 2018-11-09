@@ -1,5 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general.map
 
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.SphericalUtil
 import com.stazis.subwaystationsmvvm.R
+import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
+import com.stazis.subwaystationsmvvm.presentation.view.general.GeneralActivity
+import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import kotlinx.android.synthetic.main.fragment_station_map.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,21 +45,29 @@ class StationMapFragment : BaseFragment() {
     }
 
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
-        addMarkersToMap(initMarkers(stationsAndLocation.first))
+        addMarkersToMapAndSetListeners(initMarkers(stationsAndLocation))
+        navigateToPager.setOnClickListener {
+            (activity as GeneralActivity).navigateToPager(
+                stationsAndLocation.first,
+                stationsAndLocation.second.toLatLng()
+            )
+        }
     }
 
-    private fun initMarkers(stations: List<Station>) = stations.map {
+    private fun initMarkers(stationsAndLocation: Pair<List<Station>, Location>) = stationsAndLocation.first.map {
         val stationLocation = LatLng(it.latitude, it.longitude)
-        val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, LatLng(53.0, 27.0)).roundToInt()
+        val userLocation = stationsAndLocation.second.toLatLng()
+        val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt()
         MarkerOptions().position(stationLocation).title(it.name).snippet("${distanceToStation}m")
     }
 
-    private fun addMarkersToMap(markers: List<MarkerOptions>) = map.getMapAsync { googleMap ->
-        googleMap.setOnInfoWindowClickListener { marker ->
-            //            navigateToStationInfo(stations.find { it.name == marker.title }!!, location)
-        }
+    private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) = map.getMapAsync { googleMap ->
+        googleMap.setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
         markers.forEach { googleMap.addMarker(it) }
     }
+
+    private fun navigateToStationInfo(name: String) =
+        startActivity(Intent(context, StationInfoActivity::class.java).putExtra(StationInfoActivity.NAME_KEY, name))
 
     override fun onResume() {
         super.onResume()
@@ -72,45 +84,3 @@ class StationMapFragment : BaseFragment() {
         super.onSaveInstanceState(outState)
     }
 }
-
-//class StationMapFragment : BaseMvpFragment<StationsPresenter>(), StationsView {
-//
-//    @Inject
-//    @InjectPresenter
-//    override lateinit var presenter: StationsPresenter
-//    private lateinit var stations: List<Station>
-//    private lateinit var location: LatLng
-//
-//    @ProvidePresenter
-//    fun providePresenter() = presenter
-//
-//    private fun setupUI() {
-//        showClickableMarkersOnMap(initMarkers())
-//        navigateToPager.setOnClickListener { (activity as GeneralActivity).navigateToPager(stations, location) }
-//    }
-//
-//    override fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
-//        stations = ArrayList(stationsAndLocation.first)
-//        location = stationsAndLocation.second.toLatLng()
-//        setupUI()
-//    }
-//
-//    private fun initMarkers() = stations.map {
-//        val stationLocation = LatLng(it.latitude, it.longitude)
-//        val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, location).roundToInt()
-//        MarkerOptions().position(stationLocation).title(it.name).snippet("${distanceToStation}m")
-//    }
-//
-//    private fun showClickableMarkersOnMap(markers: List<MarkerOptions>) = map.getMapAsync { googleMap ->
-//        googleMap.setOnInfoWindowClickListener { marker ->
-//            navigateToStationInfo(stations.find { it.name == marker.title }!!, location)
-//        }
-//        markers.forEach { googleMap.addMarker(it) }
-//    }
-//
-//    private fun navigateToStationInfo(station: Station, currentLocation: LatLng) =
-//        startActivity(Intent(context, StationInfoActivity::class.java).let {
-//            it.putExtra(StationInfoActivity.STATION_KEY, station)
-//            it.putExtra(StationInfoActivity.CURRENT_LOCATION_KEY, currentLocation)
-//        })
-//}
