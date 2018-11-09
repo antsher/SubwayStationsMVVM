@@ -5,7 +5,7 @@ import com.stazis.subwaystationsmvvm.extensions.correctStations
 import com.stazis.subwaystationsmvvm.helpers.ConnectionHelper
 import com.stazis.subwaystationsmvvm.helpers.PreferencesHelper
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import com.stazis.subwaystationsmvvm.model.entities.StationAdvancedInfo
+import com.stazis.subwaystationsmvvm.model.entities.StationDetailedInfo
 import com.stazis.subwaystationsmvvm.model.services.StationService
 import java.net.ConnectException
 import kotlin.coroutines.resume
@@ -71,10 +71,10 @@ class StationRepositoryImpl(
         }
     }
 
-    override suspend fun getStationDescription(name: String): String = suspendCoroutine {
+    override suspend fun getStationDetailedInfo(name: String): StationDetailedInfo = suspendCoroutine {
         firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME).document(name).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                it.resume(task.result!!.toObject(StationAdvancedInfo::class.java)!!.description)
+                it.resume(task.result!!.toObject(StationDetailedInfo::class.java)!!)
             } else {
                 it.resumeWithException(task.exception!!)
             }

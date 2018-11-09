@@ -1,6 +1,6 @@
 package com.stazis.subwaystationsmvvm.model.entities
 
-class StationAdvancedInfo(val description: String) {
+class StationDetailedInfo(val description: String) {
 
     constructor() : this("")
 }
