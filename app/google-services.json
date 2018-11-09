@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "76183255699",
+    "firebase_url": "https://subwaystationsmvvm.firebaseio.com",
+    "project_id": "subwaystationsmvvm",
+    "storage_bucket": "subwaystationsmvvm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76183255699:android:1d14819d19233b89",
+        "android_client_info": {
+          "package_name": "com.stazis.subwaystationsmvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76183255699-2ar5cb0tgnmf25hhp63qporgdg3kkf7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stazis.subwaystationsmvvm",
+            "certificate_hash": "25ef04393817a09eb293854c68755ea63fa175f5"
+          }
+        },
+        {
+          "client_id": "76183255699-215n8l43bmevdpskq7n40hi0mp3morjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZdDr4Z4kmbUvbPZjSLQIca3XxxMLBzI0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76183255699-215n8l43bmevdpskq7n40hi0mp3morjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
