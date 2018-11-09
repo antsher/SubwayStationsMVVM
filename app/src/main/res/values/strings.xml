@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SubwayStations</string>
+    <string name="app_name">SubwayStationsMVVM</string>
     <string name="map">Map</string>
     <string name="list">List</string>
     <string name="cannot_work_without_location_access">The app cannot work without location access!</string>

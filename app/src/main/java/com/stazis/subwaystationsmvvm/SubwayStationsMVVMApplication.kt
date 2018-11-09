@@ -3,6 +3,7 @@ package com.stazis.subwaystationsmvvm
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.stazis.subwaystationsmvvm.helpers.LocationHelper
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepositoryImpl
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
@@ -12,11 +13,10 @@ import org.koin.dsl.module.module
 
 class SubwayStationsMVVMApplication : Application() {
 
-    val appModule = module {
-
+    private val appModule = module {
+        single { LocationHelper(get()) }
         single<StationRepository> { StationRepositoryImpl() }
-
-        viewModel { StationsViewModel(get()) }
+        viewModel { StationsViewModel(get(), get()) }
     }
 
     override fun attachBaseContext(base: Context?) {

@@ -1,5 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general.map
 
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,11 +37,11 @@ class StationMapFragment : BaseFragment() {
     }
 
     private fun bindViewModel() {
-        stationsViewModel.stations.observe(this, Observer(this::updateUI))
+        stationsViewModel.stationsAndLocation.observe(this, Observer(this::updateUI))
     }
 
-    private fun updateUI(stations: List<Station>) {
-        addMarkersToMap(initMarkers(stations))
+    private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
+        addMarkersToMap(initMarkers(stationsAndLocation.first))
     }
 
     private fun initMarkers(stations: List<Station>) = stations.map {

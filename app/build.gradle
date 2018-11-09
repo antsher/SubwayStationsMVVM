@@ -52,10 +52,10 @@ dependencies {
 
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     // Koin
-    implementation 'org.koin:koin-androidx-viewmodel:1.0.2'
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // Location
     implementation 'com.google.android.gms:play-services-location:16.0.0'

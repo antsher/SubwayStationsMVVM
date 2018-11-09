@@ -1,15 +1,17 @@
 package com.stazis.subwaystationsmvvm.presentation.vm
 
+import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.stazis.subwaystationsmvvm.helpers.LocationHelper
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
 
-class StationsViewModel(val repository: StationRepository) : ViewModel() {
+class StationsViewModel(repository: StationRepository, locationHelper: LocationHelper) : ViewModel() {
 
-    val stations = MutableLiveData<List<Station>>()
+    val stationsAndLocation = MutableLiveData<Pair<List<Station>, Location>>()
 
     init {
-        stations.value = repository.getStations()
+        stationsAndLocation.value = repository.getStations() to locationHelper.getLocation()
     }
 }
