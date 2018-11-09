@@ -50,6 +50,10 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    // Lifecycle
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
     // Location
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
