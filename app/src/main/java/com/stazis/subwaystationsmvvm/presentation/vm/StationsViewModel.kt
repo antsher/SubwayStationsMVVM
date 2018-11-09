@@ -3,12 +3,13 @@ package com.stazis.subwaystationsmvvm.presentation.vm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stazis.subwaystationsmvvm.model.entities.Station
+import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
 
-class StationsViewModel : ViewModel() {
+class StationsViewModel(val repository: StationRepository) : ViewModel() {
 
     val stations = MutableLiveData<List<Station>>()
 
     init {
-        stations.value = listOf(Station("Trololo", 53.9384151, 27.6663906))
+        stations.value = repository.getStations()
     }
 }
