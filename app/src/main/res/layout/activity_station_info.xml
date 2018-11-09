@@ -52,11 +52,11 @@
             app:typeface="Montserrat-Medium" />
 
         <com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
+            android:id="@+id/descriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:freezesText="true"
-            android:text="@string/description"
             android:textSize="20sp"
             app:typeface="Montserrat-SemiBold" />
 

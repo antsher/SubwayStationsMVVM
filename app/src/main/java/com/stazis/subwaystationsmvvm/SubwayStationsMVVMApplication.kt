@@ -11,6 +11,7 @@ import com.stazis.subwaystationsmvvm.helpers.PreferencesHelper
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepositoryImpl
 import com.stazis.subwaystationsmvvm.model.services.StationService
+import com.stazis.subwaystationsmvvm.presentation.vm.StationInfoViewModel
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import org.koin.android.ext.android.startKoin
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -42,6 +43,7 @@ class SubwayStationsMVVMApplication : Application() {
         }
 
         viewModel { StationsViewModel(get(), get()) }
+        viewModel { (name: String) -> StationInfoViewModel(name, get(), get()) }
     }
 
     override fun attachBaseContext(base: Context?) {
