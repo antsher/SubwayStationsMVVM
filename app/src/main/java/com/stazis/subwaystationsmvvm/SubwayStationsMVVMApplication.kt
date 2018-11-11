@@ -22,6 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SubwayStationsMVVMApplication : Application() {
 
     private val appModule = module {
+        single { LocationHelper(get()) }
+        single { ConnectionHelper(get()) }
+        single { PreferencesHelper(get()) }
+
         single {
             Retrofit.Builder()
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -29,17 +33,8 @@ class SubwayStationsMVVMApplication : Application() {
                 .baseUrl("https://my-json-server.typicode.com/BeeWhy/metro/")
                 .build()
         }
-
-        single { LocationHelper(get()) }
-        single { ConnectionHelper(get()) }
-        single { PreferencesHelper(get()) }
-
         single<StationRepository> {
-            StationRepositoryImpl(
-                get<Retrofit>().create(StationService::class.java),
-                get(),
-                get()
-            )
+            StationRepositoryImpl(get<Retrofit>().create(StationService::class.java), get(), get())
         }
 
         viewModel { StationsViewModel(get(), get()) }

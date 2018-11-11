@@ -23,19 +23,19 @@ class StationInfoActivity : BaseActivity() {
         const val NAME_KEY = "NAME_KEY"
     }
 
-    private val stationInfoViewModel: StationInfoViewModel by viewModel(parameters = {
-        parametersOf(intent.getStringExtra(NAME_KEY))
-    })
+    override val vm: StationInfoViewModel by viewModel(parameters = { parametersOf(intent.getStringExtra(NAME_KEY)) })
     private val firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_station_info)
         super.onCreate(savedInstanceState)
         bindViewModel()
+        description.onTextUpdated = this::onDescriptionUpdated
     }
 
-    private fun bindViewModel() {
-        stationInfoViewModel.detailedStationAndLocation.observe(this, Observer(this::updateUI))
+    override fun bindViewModel() {
+        super.bindViewModel()
+        vm.detailedStationAndLocation.observe(this, Observer(this::updateUI))
     }
 
     private fun updateUI(detailedStationAndLocation: Pair<DetailedStation, Location>) {
@@ -43,13 +43,20 @@ class StationInfoActivity : BaseActivity() {
             name.text = it.name
             latitude.text = String.format("Latitude: %f", it.latitude)
             longitude.text = String.format("Longitude: %f", it.longitude)
+            descriptionLabel.text = resources.getText(R.string.description)
+            description.savedText = it.description
+            description.enable()
             val stationLocation = LatLng(it.latitude, it.longitude)
             val userLocation = detailedStationAndLocation.second.toLatLng()
             distance.text = String.format(
                 "Distance to station from your current location is %d meters",
                 SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt()
             )
-            descriptionLabel.text = resources.getText(R.string.description)
         }
+    }
+
+    private fun onDescriptionUpdated() {
+        firebaseAnalytics.logEvent("updated_station_description", null)
+        vm.onDescriptionUpdated(description.savedText)
     }
 }

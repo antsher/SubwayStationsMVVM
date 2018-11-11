@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
 
 class StationMapFragment : BaseFragment() {
 
-    private val stationsViewModel by viewModel<StationsViewModel>()
+    override val vm by viewModel<StationsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         (inflater.inflate(R.layout.fragment_station_map, container, false) as ViewGroup).apply { root = this }
@@ -40,8 +40,9 @@ class StationMapFragment : BaseFragment() {
         }
     }
 
-    private fun bindViewModel() {
-        stationsViewModel.stationsAndLocation.observe(this, Observer(this::updateUI))
+    override fun bindViewModel() {
+        super.bindViewModel()
+        vm.stationsAndLocation.observe(this, Observer(this::updateUI))
     }
 
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {

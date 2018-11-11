@@ -2,7 +2,6 @@ package com.stazis.subwaystationsmvvm.presentation.vm
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.stazis.subwaystationsmvvm.helpers.LocationHelper
 import com.stazis.subwaystationsmvvm.model.entities.DetailedStation
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
@@ -12,14 +11,14 @@ class StationInfoViewModel(
     private val name: String,
     private val repository: StationRepository,
     private val locationHelper: LocationHelper
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val detailedStationAndLocation = MutableLiveData<Pair<DetailedStation, Location>>()
-    val error = MutableLiveData<String>()
 
     init {
+        isLoading.value = true
         uiScope.launch {
             delay(1000)
             getDetailedStationAndLocation()
@@ -30,7 +29,29 @@ class StationInfoViewModel(
         val basicInfo = repository.getStationBasicInfo(name)
         val detailedInfo = repository.getStationDetailedInfo(name)
         val location = locationHelper.getLocation()
-        detailedStationAndLocation.value = DetailedStation(basicInfo, detailedInfo) to location
+        try {
+            detailedStationAndLocation.value = DetailedStation(basicInfo, detailedInfo) to location
+        } catch (error: Throwable) {
+            message.value = error.message ?: "Unknown error!!!"
+        }
+        isLoading.value = false
+    }
+
+    fun onDescriptionUpdated(description: String) {
+        isLoading.value = true
+        uiScope.launch {
+            delay(1000)
+            updateStationDescription(description)
+        }
+    }
+
+    suspend fun updateStationDescription(description: String) {
+        try {
+            message.value = repository.updateStationDescription(name, description)
+        } catch (error: Throwable) {
+            message.value = error.message ?: "Unknown error!!!"
+        }
+        isLoading.value = false
     }
 
     override fun onCleared() {
