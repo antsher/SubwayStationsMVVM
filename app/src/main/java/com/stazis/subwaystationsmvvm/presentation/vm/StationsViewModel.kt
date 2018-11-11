@@ -10,8 +10,6 @@ import kotlinx.coroutines.*
 class StationsViewModel(private val repository: StationRepository, private val locationHelper: LocationHelper) :
     BaseViewModel() {
 
-    private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val stationsAndLocation = MutableLiveData<Pair<List<Station>, Location>>()
 
     init {
@@ -29,10 +27,5 @@ class StationsViewModel(private val repository: StationRepository, private val l
             message.value = error.message ?: "Unknown error!!!"
         }
         isLoading.value = false
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 }

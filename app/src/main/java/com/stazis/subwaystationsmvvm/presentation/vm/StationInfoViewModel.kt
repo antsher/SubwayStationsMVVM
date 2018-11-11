@@ -13,8 +13,6 @@ class StationInfoViewModel(
     private val locationHelper: LocationHelper
 ) : BaseViewModel() {
 
-    private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val detailedStationAndLocation = MutableLiveData<Pair<DetailedStation, Location>>()
 
     init {
@@ -45,17 +43,12 @@ class StationInfoViewModel(
         }
     }
 
-    suspend fun updateStationDescription(description: String) {
+    private suspend fun updateStationDescription(description: String) {
         try {
             message.value = repository.updateStationDescription(name, description)
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
         isLoading.value = false
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 }
