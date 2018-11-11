@@ -41,6 +41,7 @@ class StationRepositoryImpl(
         stationService.getStations().await().correctStations().apply {
             postBasicStationsToFirestore(this)
             createAdvancedStationsCollectionInFirestore(this)
+            preferencesHelper.saveBoolean(DATA_IN_FIRESTORE_KEY, true)
         }
 
     private fun postBasicStationsToFirestore(stations: List<Station>) = stations.forEach {
