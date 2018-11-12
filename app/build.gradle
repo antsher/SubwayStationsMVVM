@@ -12,6 +12,7 @@ android {
             storePassword 'android'
         }
     }
+
     buildToolsVersion '28.0.3'
     compileSdkVersion 28
     defaultConfig {
@@ -23,6 +24,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -32,9 +34,14 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        lintConfig file("$projectDir/lint.xml")
     }
 }
 

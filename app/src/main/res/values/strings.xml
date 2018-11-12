@@ -2,11 +2,8 @@
     <string name="app_name">SubwayStationsMVVM</string>
     <string name="map">Map</string>
     <string name="list">List</string>
-    <string name="cannot_work_without_location_access">The app cannot work without location access!</string>
-    <string name="open_station_info">Open station info</string>
     <string name="scroll_left">Scroll left</string>
     <string name="scroll_right">Scroll right</string>
     <string name="expand_info">Expand info</string>
     <string name="description">Description:</string>
-    <string name="edit">Edit</string>
 </resources>
