@@ -3,8 +3,6 @@ package com.stazis.subwaystationsmvvm.presentation.view.general.list
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.stazis.subwaystationsmvvm.R
@@ -12,28 +10,40 @@ import com.stazis.subwaystationsmvvm.model.entities.Station
 import kotlinx.android.synthetic.main.view_station.view.*
 
 @SuppressLint("ViewConstructor")
-class AnimatedStationWidget(context: Context?, station: Station, stationDistance: Int, onClicked: () -> Unit) :
-    RelativeLayout(context) {
+class AnimatedStationWidget(
+    context: Context?,
+    var expanded: Boolean,
+    station: Station,
+    stationDistance: Int,
+    onClicked: () -> Unit
+) : RelativeLayout(context) {
 
     companion object {
 
-        private const val SUPER_STATE_KEY = "SUPER_STATE_KEY"
-        private const val EXPANDED_KEY = "EXPANDED_KEY"
         private const val ANIMATION_DURATION = 300L
     }
 
-    private var expanded = false
+    val stationName = station.name
     private var animationInProgress = false
     private val dpRatio = resources.displayMetrics.density
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_station, this, true)
-        name.text = station.name
+        restoreExpanded()
+        name.text = stationName
         latitude.text = String.format("Latitude: %f", station.latitude)
         longitude.text = String.format("Longitude: %f", station.longitude)
         distance.text = String.format("%dm", stationDistance)
         switchState.setOnClickListener { switchState() }
         setOnClickListener { onClicked() }
+    }
+
+    private fun restoreExpanded() {
+        if (expanded) {
+            hiddenView.visibility = VISIBLE
+            hiddenView.alpha = 1f
+            hiddenView.translationY = 0f
+        }
     }
 
     private fun switchState() = ifNotAnimationInProgress {
@@ -91,28 +101,4 @@ class AnimatedStationWidget(context: Context?, station: Station, stationDistance
             override fun onAnimationRepeat(animation: Animator) {}
         })
         .start()
-
-    override fun onSaveInstanceState() = Bundle().apply {
-        putParcelable(SUPER_STATE_KEY, super.onSaveInstanceState())
-        putBoolean(EXPANDED_KEY, expanded)
-    }
-
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        if (state is Bundle) {
-            super.onRestoreInstanceState(state.getParcelable(SUPER_STATE_KEY))
-            expanded = state.getBoolean(EXPANDED_KEY).apply {
-                if (this) {
-                    hiddenView.visibility = VISIBLE
-                    hiddenView.alpha = 1f
-                    hiddenView.translationY = 0f
-                } else {
-                    hiddenView.visibility = GONE
-                    hiddenView.alpha = 0f
-                    hiddenView.translationY = -50 * dpRatio
-                }
-            }
-        } else {
-            super.onRestoreInstanceState(state)
-        }
-    }
 }
