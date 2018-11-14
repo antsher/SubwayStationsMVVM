@@ -39,8 +39,11 @@ class StationInfoFragment : Fragment() {
         val stationLocation = LatLng(station.latitude, station.longitude)
         val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, location).roundToInt()
         name.text = station.name
-        latitude.text = String.format("Latitude: %f", station.latitude)
-        longitude.text = String.format("Longitude: %f", station.longitude)
-        distance.text = String.format("Distance to station from your current location is %d meters", distanceToStation)
+        latitude.text = station.latitude.toString()
+        longitude.text = station.longitude.toString()
+        distance.text = String.format(
+            "${resources.getString(R.string.distance_to_station_is)} %d ${resources.getString(R.string.meters)}",
+            distanceToStation
+        )
     }
 }

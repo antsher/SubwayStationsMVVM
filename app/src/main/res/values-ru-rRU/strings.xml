@@ -8,4 +8,7 @@
     <string name="list">Список</string>
     <string name="map">Карта</string>
     <string name="enter_text">Введите текст</string>
+    <string name="meter_short">м</string>
+    <string name="meters">метра</string>
+    <string name="distance_to_station_is">Расстояние до станции от вашего местоположения составляет</string>
 </resources>

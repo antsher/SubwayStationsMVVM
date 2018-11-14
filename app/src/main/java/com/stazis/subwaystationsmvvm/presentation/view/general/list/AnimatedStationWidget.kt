@@ -31,9 +31,9 @@ class AnimatedStationWidget(
         LayoutInflater.from(context).inflate(R.layout.view_station, this, true)
         restoreExpanded()
         name.text = stationName
-        latitude.text = String.format("Latitude: %f", station.latitude)
-        longitude.text = String.format("Longitude: %f", station.longitude)
-        distance.text = String.format("%dm", stationDistance)
+        latitude.text = station.latitude.toString()
+        longitude.text = station.longitude.toString()
+        distance.text = String.format("%d${resources.getString(R.string.meter_short)}", stationDistance)
         switchState.setOnClickListener { switchState() }
         setOnClickListener { onClicked() }
     }

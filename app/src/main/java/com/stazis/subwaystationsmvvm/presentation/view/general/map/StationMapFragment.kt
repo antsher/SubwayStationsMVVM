@@ -55,17 +55,21 @@ class StationMapFragment : BaseFragment() {
         }
     }
 
-    private fun initMarkers(stationsAndLocation: Pair<List<Station>, Location>) = stationsAndLocation.first.map {
-        val stationLocation = LatLng(it.latitude, it.longitude)
-        val userLocation = stationsAndLocation.second.toLatLng()
-        val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt()
-        MarkerOptions().position(stationLocation).title(it.name).snippet("${distanceToStation}m")
-    }
+    private fun initMarkers(stationsAndLocation: Pair<List<Station>, Location>) =
+        stationsAndLocation.first.map {
+            val stationLocation = LatLng(it.latitude, it.longitude)
+            val userLocation = stationsAndLocation.second.toLatLng()
+            val distanceToStation = SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt()
+            MarkerOptions().position(stationLocation)
+                .title(it.name)
+                .snippet("$distanceToStation${resources.getString(R.string.meter_short)}")
+        }
 
-    private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) = map.getMapAsync { googleMap ->
-        googleMap.setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
-        markers.forEach { googleMap.addMarker(it) }
-    }
+    private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) =
+        map.getMapAsync { googleMap ->
+            googleMap.setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
+            markers.forEach { googleMap.addMarker(it) }
+        }
 
     private fun navigateToStationInfo(name: String) =
         startActivity(Intent(context, StationInfoActivity::class.java).putExtra(StationInfoActivity.NAME_KEY, name))

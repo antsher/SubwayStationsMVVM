@@ -23,6 +23,11 @@ import kotlin.math.roundToInt
 
 class StationListFragment : BaseFragment() {
 
+    companion object {
+
+        private const val STATES_KEY = "STATES_KEY"
+    }
+
     override val vm by viewModel<StationsViewModel>()
     private var states = HashMap<String, Boolean>()
 
@@ -33,8 +38,8 @@ class StationListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViewModel()
-        if (savedInstanceState !== null && savedInstanceState.containsKey("key")) {
-            states = savedInstanceState.getSerializable("key") as HashMap<String, Boolean>
+        if (savedInstanceState !== null && savedInstanceState.containsKey(STATES_KEY)) {
+            states = savedInstanceState.getSerializable(STATES_KEY) as HashMap<String, Boolean>
         }
     }
 
@@ -73,7 +78,7 @@ class StationListFragment : BaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         stationsContainer.forEach { (it as AnimatedStationWidget).run { states[this.stationName] = expanded } }
-        outState.putSerializable("key", states)
+        outState.putSerializable(STATES_KEY, states)
         super.onSaveInstanceState(outState)
     }
 }
