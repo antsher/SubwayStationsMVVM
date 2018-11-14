@@ -68,9 +68,8 @@ class StationListFragment : BaseFragment() {
     private fun navigateToStationInfo(name: String) =
         startActivity(Intent(context, StationInfoActivity::class.java).putExtra(StationInfoActivity.NAME_KEY, name))
 
-    private fun addStationViewsToContainer(stationViewsWithDistances: List<AnimatedStationWidget>) {
+    private fun addStationViewsToContainer(stationViewsWithDistances: List<AnimatedStationWidget>) =
         stationViewsWithDistances.forEach { stationsContainer.addView(it) }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         stationsContainer.forEach { (it as AnimatedStationWidget).run { states[this.stationName] = expanded } }
