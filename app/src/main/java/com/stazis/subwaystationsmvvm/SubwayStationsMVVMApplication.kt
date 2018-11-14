@@ -2,7 +2,6 @@ package com.stazis.subwaystationsmvvm
 
 import android.app.Application
 import android.content.Context
-import androidx.multidex.MultiDex
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.stazis.subwaystationsmvvm.helpers.ConnectionHelper
@@ -44,8 +43,5 @@ class SubwayStationsMVVMApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         startKoin(this, listOf(appModule))
-        if (android.os.Build.VERSION.SDK_INT < 21) {
-            MultiDex.install(this)
-        }
     }
 }

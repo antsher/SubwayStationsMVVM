@@ -22,12 +22,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -46,8 +46,6 @@ android {
 }
 
 dependencies {
-    // Multidex
-    implementation 'androidx.multidex:multidex:2.0.0'
 
     // Core
     implementation "com.google.android.material:material:$androidx_version"
