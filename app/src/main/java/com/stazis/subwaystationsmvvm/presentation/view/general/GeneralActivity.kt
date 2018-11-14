@@ -1,7 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity

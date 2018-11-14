@@ -6,6 +6,7 @@
 
     <com.stazis.subwaystationsmvvm.presentation.view.common.EditTextWithFont
         android:id="@+id/text"
+        android:hint="@string/enter_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/buttons"

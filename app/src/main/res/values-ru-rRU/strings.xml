@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">СтанцииМетроMVVM</string>
+    <string name="description">Описание:</string>
+    <string name="expand_info">Показать информацию</string>
+    <string name="scroll_right">Пролистать вправо</string>
+    <string name="scroll_left">Пролистать влево</string>
+    <string name="list">Список</string>
+    <string name="map">Карта</string>
+    <string name="enter_text">Введите текст</string>
+</resources>
