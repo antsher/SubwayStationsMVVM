@@ -8,7 +8,7 @@ import kotlinx.coroutines.Job
 
 abstract class BaseViewModel : ViewModel() {
 
-    val viewModelJob = Job()
+    private val viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val isLoading = MutableLiveData<Boolean>()
     val message = MutableLiveData<String>()

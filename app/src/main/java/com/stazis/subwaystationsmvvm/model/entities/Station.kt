@@ -2,7 +2,9 @@ package com.stazis.subwaystationsmvvm.model.entities
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 
+@Keep
 data class Station(val name: String, val latitude: Double, val longitude: Double) : Parcelable {
 
     companion object CREATOR : Parcelable.Creator<Station> {
