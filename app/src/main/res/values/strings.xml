@@ -10,4 +10,6 @@
     <string name="meter_short">m</string>
     <string name="meters">meters</string>
     <string name="distance_to_station_is">Distance to station from your location</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
 </resources>

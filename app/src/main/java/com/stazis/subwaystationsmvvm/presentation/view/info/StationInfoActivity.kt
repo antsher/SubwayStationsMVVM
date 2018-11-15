@@ -41,17 +41,18 @@ class StationInfoActivity : BaseActivity() {
     private fun updateUI(detailedStationAndLocation: Pair<DetailedStation, Location>) {
         detailedStationAndLocation.first.let {
             name.text = it.name
-            latitude.text = String.format("Latitude: %f", it.latitude)
-            longitude.text = String.format("Longitude: %f", it.longitude)
-            descriptionLabel.text = resources.getText(R.string.description)
-            description.savedText = it.description
-            description.enable()
+            latitude.text = String.format("%s %f", latitude.text, it.latitude)
+            longitude.text = String.format("%s %f", longitude.text, it.longitude)
             val stationLocation = LatLng(it.latitude, it.longitude)
             val userLocation = detailedStationAndLocation.second.toLatLng()
             distance.text = String.format(
-                "Distance to station from your current location is %d meters",
-                SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt()
+                "%s %d %s",
+                resources.getString(R.string.distance_to_station_is),
+                SphericalUtil.computeDistanceBetween(stationLocation, userLocation).roundToInt(),
+                resources.getString(R.string.meters)
             )
+            description.savedText = it.description
+            description.enable()
         }
     }
 

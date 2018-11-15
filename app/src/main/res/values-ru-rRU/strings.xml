@@ -11,4 +11,6 @@
     <string name="meter_short">м</string>
     <string name="meters">метра</string>
     <string name="distance_to_station_is">Расстояние до станции от вашего местоположения составляет</string>
+    <string name="latitude">Широта:</string>
+    <string name="longitude">Долгота:</string>
 </resources>
