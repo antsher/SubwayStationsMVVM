@@ -35,10 +35,7 @@ class StationInfoViewModel(
             locationHelper.getLocation().toLatLng()
         ).roundToInt()
         try {
-            detailedStationAndLocation.value = DetailedStation(
-                basicInfo,
-                detailedInfo
-            ) to distance
+            detailedStationAndLocation.value = DetailedStation(basicInfo, detailedInfo) to distance
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
