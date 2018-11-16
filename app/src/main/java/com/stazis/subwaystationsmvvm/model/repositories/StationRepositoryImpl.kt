@@ -82,16 +82,21 @@ class StationRepositoryImpl(
         }
     }
 
-    override suspend fun updateStationDescription(name: String, description: String): String = suspendCoroutine {
-        firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME)
-            .document(name)
-            .update("description", description)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    it.resume("Station updated successfully!")
-                } else {
-                    it.resumeWithException(task.exception!!)
-                }
+    override suspend fun updateStationDescription(name: String, description: String): String =
+        if (connectionHelper.isOnline()) {
+            suspendCoroutine {
+                firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME)
+                    .document(name)
+                    .update("description", description)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            it.resume("Station updated successfully!")
+                        } else {
+                            it.resumeWithException(task.exception!!)
+                        }
+                    }
             }
-    }
+        } else {
+            throw ConnectException("Cannot update station description due to no internet connection is present")
+        }
 }
