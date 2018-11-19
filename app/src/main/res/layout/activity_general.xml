@@ -17,6 +17,7 @@
         app:navGraph="@navigation/general_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:background="@android:color/holo_orange_dark"
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
