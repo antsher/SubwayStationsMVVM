@@ -1,10 +1,13 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.model.LatLng
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.helpers.PermissionState
@@ -13,38 +16,31 @@ import com.stazis.subwaystationsmvvm.helpers.requestPermission
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import kotlinx.android.synthetic.main.activity_general.*
 
+@SuppressLint("MissingPermission")
 class GeneralActivity : AppCompatActivity() {
 
     companion object {
 
         const val PERMISSION_REQUEST_CODE = 9001
-        private const val ACTIVE_TAB_KEY = "ACTIVE_TAB_KEY"
         private const val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
     }
 
-    enum class TabName { Map, List }
-
-    private lateinit var activeTab: TabName
-    private val navigationController: NavigationController = NavigationController(this, R.id.fragmentContainer)
     private val firebaseAnalytics by lazy { FirebaseAnalytics.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        emptyList<Station>()
         setContentView(R.layout.activity_general)
-        setListeners()
-//        if (savedInstanceState == null) {
-//            actAccordingToLocationPermissionState()
-//        }
+        bottomNavigation.setupWithNavController(findNavController(R.id.nav_host_fragment))
     }
 
-    private fun actAccordingToLocationPermissionState() {
-        when (checkPermissionState(this, locationPermission)) {
-            PermissionState.GRANTED -> navigateToMap()
-            PermissionState.NOT_GRANTED -> requestPermission(this, locationPermission)
-            PermissionState.REJECTED -> {
-                firebaseAnalytics.logEvent("permissions_are_rejected", null)
-                askNicelyForPermissions()
-            }
+    fun requestPermissions() = when (checkPermissionState(this, locationPermission)) {
+        PermissionState.GRANTED -> {
+        }
+        PermissionState.NOT_GRANTED -> requestPermission(this, locationPermission)
+        PermissionState.REJECTED -> {
+            firebaseAnalytics.logEvent("permissions_are_rejected", null)
+            askNicelyForPermissions()
         }
     }
 
@@ -58,51 +54,14 @@ class GeneralActivity : AppCompatActivity() {
         .create()
         .show()
 
-    private fun setListeners() {
-        mapTab.setOnClickListener { navigateToMap() }
-        listTab.setOnClickListener { navigateToList() }
-    }
-
-    private fun navigateToMap() {
-        firebaseAnalytics.logEvent("navigated_to_map", null)
-        activeTab = TabName.Map
-        listTab.makeInactive()
-        mapTab.makeActive()
-        navigationController.navigateToStationMap()
-    }
-
-    private fun navigateToList() {
-        firebaseAnalytics.logEvent("navigated_to_list", null)
-        activeTab = TabName.List
-        mapTab.makeInactive()
-        listTab.makeActive()
-        navigationController.navigateToStationList()
-    }
-
-    fun navigateToPager(stations: List<Station>, location: LatLng) {
-        firebaseAnalytics.logEvent("navigated_to_pager", null)
-        navigationController.navigateToStationPager(stations, location)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) =
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            PERMISSION_REQUEST_CODE -> actAccordingToLocationPermissionState()
-            else -> throw IllegalArgumentException("Invalid request code!")
-        }
-
-    override fun onSaveInstanceState(savedInstanceState: Bundle) = with(savedInstanceState) {
-        putSerializable(ACTIVE_TAB_KEY, activeTab)
-        super.onSaveInstanceState(this)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState?.let {
-            activeTab = savedInstanceState.getSerializable(ACTIVE_TAB_KEY) as TabName
-            when (activeTab) {
-                TabName.Map -> mapTab.makeActive()
-                TabName.List -> listTab.makeActive()
+            PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED)) {
+                    askNicelyForPermissions()
+                }
             }
+            else -> throw IllegalArgumentException("Invalid request code!")
         }
     }
 }

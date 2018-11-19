@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -15,7 +17,8 @@ import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
-import com.stazis.subwaystationsmvvm.presentation.view.general.GeneralActivity
+import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
+import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import kotlinx.android.synthetic.main.fragment_station_map.*
@@ -48,10 +51,12 @@ class StationMapFragment : BaseFragment() {
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addMarkersToMapAndSetListeners(initMarkers(stationsAndLocation))
         navigateToPager.setOnClickListener {
-            (activity as GeneralActivity).navigateToPager(
-                stationsAndLocation.first,
-                stationsAndLocation.second.toLatLng()
-            )
+            bundleOf(
+                STATIONS_KEY to stationsAndLocation.first,
+                LOCATION_KEY to stationsAndLocation.second.toLatLng()
+            ).run {
+                findNavController().navigate(R.id.station_pager_dest, this)
+            }
         }
     }
 

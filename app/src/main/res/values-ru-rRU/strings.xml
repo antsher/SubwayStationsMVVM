@@ -13,4 +13,6 @@
     <string name="distance_to_station_is">Расстояние до станции от вашего местоположения составляет</string>
     <string name="latitude">Широта:</string>
     <string name="longitude">Долгота:</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="home">Главная</string>
 </resources>

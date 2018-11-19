@@ -13,15 +13,8 @@ class StationPagerFragment : Fragment() {
 
     companion object {
 
-        private const val STATIONS_KEY = "STATIONS_KEY"
-        private const val LOCATION_KEY = "LOCATION_KEY"
-
-        fun newInstance(stations: List<Station>, location: LatLng) = StationPagerFragment().apply {
-            arguments = Bundle().apply {
-                putParcelableArrayList(STATIONS_KEY, ArrayList(stations))
-                putParcelable(LOCATION_KEY, location)
-            }
-        }
+        const val STATIONS_KEY = "STATIONS_KEY"
+        const val LOCATION_KEY = "LOCATION_KEY"
     }
 
     @Suppress("UNCHECKED_CAST")
