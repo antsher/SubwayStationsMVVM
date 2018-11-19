@@ -32,9 +32,10 @@ class GeneralActivity : AppCompatActivity() {
         emptyList<Station>()
         setContentView(R.layout.activity_general)
         bottomNavigation.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        requestPermissions()
     }
 
-    fun requestPermissions() = when (checkPermissionState(this, locationPermission)) {
+    private fun requestPermissions() = when (checkPermissionState(this, locationPermission)) {
         PermissionState.GRANTED -> {
         }
         PermissionState.NOT_GRANTED -> requestPermission(this, locationPermission)
