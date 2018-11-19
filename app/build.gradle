@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     signingConfigs {
@@ -85,6 +86,10 @@ dependencies {
 
     // Crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
+
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

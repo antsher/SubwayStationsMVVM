@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/map_station_dest">
+    <fragment
+        android:id="@+id/map_station_dest"
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment"
+        android:label="Station Map"
+        tools:layout="@layout/fragment_station_map" />
+</navigation>

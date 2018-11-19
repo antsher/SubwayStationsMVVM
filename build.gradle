@@ -4,6 +4,7 @@ buildscript {
     ext.lifecycle_version = '2.0.0'
     ext.koin_version = '1.0.2'
     ext.retrofit_version = '2.4.0'
+    ext.navigation_version = '1.0.0-alpha07'
 
     repositories {
         google()
@@ -16,6 +17,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.2.0'
         classpath 'io.fabric.tools:gradle:1.26.1'
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
     }
 }
 

@@ -32,9 +32,9 @@ class GeneralActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general)
         setListeners()
-        if (savedInstanceState == null) {
-            actAccordingToLocationPermissionState()
-        }
+//        if (savedInstanceState == null) {
+//            actAccordingToLocationPermissionState()
+//        }
     }
 
     private fun actAccordingToLocationPermissionState() {
