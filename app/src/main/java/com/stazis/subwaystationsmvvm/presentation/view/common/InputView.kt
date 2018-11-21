@@ -1,7 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.common
 
 import android.content.Context
-import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -21,24 +20,15 @@ class InputView @JvmOverloads constructor(context: Context?, attrs: AttributeSet
         }
     }
 
-    public override fun onSaveInstanceState(): Parcelable? = InputViewState(super.onSaveInstanceState()!!).apply {
-        savedText = text.text.toString()
-    }
+    class InputViewState(superState: Parcelable, var savedText: String) : View.BaseSavedState(superState)
+
+    public override fun onSaveInstanceState(): Parcelable? =
+        InputViewState(super.onSaveInstanceState()!!, text.text.toString())
 
     public override fun onRestoreInstanceState(state: Parcelable) = if (state is InputViewState) {
         super.onRestoreInstanceState(state.superState)
         text.setText(state.savedText)
     } else {
         super.onRestoreInstanceState(state)
-    }
-
-    internal class InputViewState(superState: Parcelable) : View.BaseSavedState(superState) {
-
-        var savedText: String = ""
-
-        override fun writeToParcel(out: Parcel, flags: Int) {
-            super.writeToParcel(out, flags)
-            out.writeString(savedText)
-        }
     }
 }
