@@ -14,4 +14,6 @@
     <string name="longitude">Longitude:</string>
     <string name="welcome">Welcome!</string>
     <string name="home">Home</string>
+    <string name="name">Name:</string>
+    <string name="message">Message:</string>
 </resources>
