@@ -32,26 +32,9 @@ class InputView @JvmOverloads constructor(context: Context?, attrs: AttributeSet
         super.onRestoreInstanceState(state)
     }
 
-    internal class InputViewState : View.BaseSavedState {
-
-        @Suppress("UNUSED")
-        companion object {
-
-            @JvmField
-            val CREATOR = object : Parcelable.Creator<InputViewState> {
-                override fun createFromParcel(source: Parcel) = InputViewState(source)
-
-                override fun newArray(size: Int): Array<InputViewState?> = arrayOfNulls(size)
-            }
-        }
+    internal class InputViewState(superState: Parcelable) : View.BaseSavedState(superState) {
 
         var savedText: String = ""
-
-        constructor(source: Parcel) : super(source) {
-            savedText = source.readString() ?: ""
-        }
-
-        constructor(superState: Parcelable) : super(superState)
 
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
