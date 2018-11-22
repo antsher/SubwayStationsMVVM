@@ -22,12 +22,12 @@ import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPage
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import kotlinx.android.synthetic.main.fragment_station_map.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.roundToInt
 
 class StationMapFragment : BaseFragment() {
 
-    override val vm by viewModel<StationsViewModel>()
+    override val vm by sharedViewModel<StationsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         (inflater.inflate(R.layout.fragment_station_map, container, false) as ViewGroup).apply { root = this }

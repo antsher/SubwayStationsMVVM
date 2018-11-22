@@ -21,7 +21,7 @@ import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPage
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import kotlinx.android.synthetic.main.fragment_station_list.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.roundToInt
 
 class StationListFragment : BaseFragment() {
@@ -31,7 +31,7 @@ class StationListFragment : BaseFragment() {
         private const val STATES_KEY = "STATES_KEY"
     }
 
-    override val vm by viewModel<StationsViewModel>()
+    override val vm by sharedViewModel<StationsViewModel>()
     private var states = HashMap<String, Boolean>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
