@@ -20,4 +20,6 @@
     <item name="stationInfoActivityLongitude" type="id" />
     <item name="stationInfoActivityDistance" type="id" />
     <item name="stationInfoActivityDescription" type="id" />
+    <item name="animatedStationWidgetHiddenView" type="id" />
+    <item name="animatedStationWidgetSwitchState" type="id" />
 </resources>

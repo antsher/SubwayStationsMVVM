@@ -26,7 +26,7 @@ import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.UI
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 class StationListFragment : BaseFragment() {
@@ -36,7 +36,7 @@ class StationListFragment : BaseFragment() {
         private const val STATES_KEY = "STATES_KEY"
     }
 
-    override val vm by sharedViewModel<StationsViewModel>()
+    override val vm by viewModel<StationsViewModel>()
     private val stationsContainer by lazy { root.findViewById<LinearLayout>(R.id.stationListFragmentStationsContainer) }
     private var states = HashMap<String, Boolean>()
 
@@ -92,7 +92,7 @@ class StationListFragment : BaseFragment() {
         ).roundToInt()
         it to distanceBetweenUserAndStationLocations
     }.sortedBy { it.second }.map {
-        AnimatedStationWidget(context, states[it.first.name] ?: false, it.first, it.second) {
+        AnimatedStationWidget(context!!, states[it.first.name] ?: false, it.first, it.second) {
             navigateToStationInfo(it.first.name)
         }
     }

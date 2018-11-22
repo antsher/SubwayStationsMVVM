@@ -3,40 +3,85 @@ package com.stazis.subwaystationsmvvm.presentation.view.general.list
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.LayoutInflater
-import android.widget.RelativeLayout
+import android.view.View
+import android.widget.LinearLayout
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import kotlinx.android.synthetic.main.view_station.view.*
+import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
+import org.jetbrains.anko.*
 
 @SuppressLint("ViewConstructor")
 class AnimatedStationWidget(
-    context: Context?,
+    context: Context,
     var expanded: Boolean,
     station: Station,
     stationDistance: Int,
     onClicked: () -> Unit
-) : RelativeLayout(context) {
+) : _RelativeLayout(context) {
 
     companion object {
 
         private const val ANIMATION_DURATION = 300L
     }
 
+    private val hiddenView: LinearLayout by lazy { findViewById<LinearLayout>(R.id.animatedStationWidgetHiddenView) }
     val stationName = station.name
     private var animationInProgress = false
     private val dpRatio = resources.displayMetrics.density
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_station, this, true)
+        initUI(station, stationDistance, onClicked)
         restoreExpanded()
-        name.text = stationName
-        latitude.text = String.format("%s %f", resources.getString(R.string.latitude), station.latitude)
-        longitude.text = String.format("%s %f", resources.getString(R.string.longitude), station.longitude)
-        distance.text = String.format("%d%s", stationDistance, resources.getString(R.string.meter_short))
-        switchState.setOnClickListener { switchState() }
-        setOnClickListener { onClicked() }
     }
+
+    private fun initUI(station: Station, stationDistance: Int, onClicked: () -> Unit) = relativeLayout {
+        linearLayout {
+            orientation = LinearLayout.VERTICAL
+            textViewWithFont("Montserrat-SemiBold") {
+                text = stationName
+                textSize = 24f
+            }.lparams {
+                topMargin = dip(10)
+            }
+            textViewWithFont("Montserrat-Light") {
+                text = String.format("%d%s", stationDistance, resources.getString(R.string.meter_short))
+                textSize = 16f
+            }.lparams {
+                topMargin = dip(5)
+            }
+            linearLayout {
+                id = R.id.animatedStationWidgetHiddenView
+                alpha = 0f
+                orientation = LinearLayout.VERTICAL
+                translationY = dip(-50).toFloat()
+                visibility = View.GONE
+                textViewWithFont("Montserrat-Italic") {
+                    text = String.format("%s %f", resources.getString(R.string.latitude), station.latitude)
+                    textSize = 18f
+                }.lparams {
+                    bottomMargin = dip(5)
+                }
+                textViewWithFont("Montserrat-Italic") {
+                    text = String.format("%s %f", resources.getString(R.string.longitude), station.longitude)
+                    textSize = 18f
+                }
+            }.lparams(matchParent) {
+                topMargin = dip(10)
+            }
+        }.lparams(matchParent) {
+            marginStart = dip(15)
+            bottomMargin = dip(5)
+            startOf(R.id.animatedStationWidgetSwitchState)
+        }
+        imageView {
+            id = R.id.animatedStationWidgetSwitchState
+            contentDescription = resources.getString(R.string.expand_info)
+            padding = dip(10)
+            imageResource = R.drawable.ic_arrow_bottom
+        }.lparams(dip(68), dip(68)) {
+            alignParentEnd()
+        }.setOnClickListener { switchState() }
+    }.setOnClickListener { onClicked() }
 
     private fun restoreExpanded() {
         if (expanded) {

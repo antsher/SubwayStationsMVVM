@@ -27,12 +27,12 @@ import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.UI
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 class StationMapFragment : BaseFragment() {
 
-    override val vm by sharedViewModel<StationsViewModel>()
+    override val vm by viewModel<StationsViewModel>()
     val map: MapView by lazy { root.findViewById<MapView>(R.id.stationMapFragmentMap) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
