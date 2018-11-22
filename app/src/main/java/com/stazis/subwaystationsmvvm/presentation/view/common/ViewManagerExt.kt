@@ -6,6 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.presentation.view.common.state.LinearLayoutWithState
 import com.stazis.subwaystationsmvvm.presentation.view.common.state.RelativeLayoutWithState
+import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationViewPager
 import org.jetbrains.anko.custom.ankoView
 
 inline fun ViewManager.textViewWithFont(typeface: String? = null, init: TextViewWithFont.() -> Unit) =
@@ -30,3 +31,6 @@ inline fun ViewManager.floatingActionButton(init: FloatingActionButton.() -> Uni
 
 inline fun ViewManager.editableTextView(init: EditableTextView.() -> Unit) =
     ankoView({ EditableTextView(it) }, R.style.AppTheme, init)
+
+inline fun ViewManager.stationViewPager(init: StationViewPager.() -> Unit) =
+    ankoView({ StationViewPager(it) }, R.style.AppTheme, init)

@@ -26,4 +26,7 @@
     <item name="stationViewPagerTitle" type="id" />
     <item name="stationViewPagerScrollRight" type="id" />
     <item name="stationViewPagerPager" type="id" />
+    <item name="stationInfoFragmentLatitude" type="id" />
+    <item name="stationInfoFragmentLongitude" type="id" />
+    <item name="stationInfoFragmentDistance" type="id" />
 </resources>

@@ -1,7 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general.pager
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -15,7 +14,7 @@ import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.viewPager
 
-class StationViewPager(context: Context?, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+class StationViewPager(context: Context) : _LinearLayout(context) {
 
     private val title: TextViewWithFont by lazy { findViewById<TextViewWithFont>(R.id.stationViewPagerTitle) }
 
@@ -58,7 +57,6 @@ class StationViewPager(context: Context?, attrs: AttributeSet? = null) : LinearL
         val pager = findViewById<ViewPager>(R.id.stationViewPagerPager)
         pager.adapter = StationPagerAdapter(fragmentManager, stations, location)
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
