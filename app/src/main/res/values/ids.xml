@@ -22,4 +22,8 @@
     <item name="stationInfoActivityDescription" type="id" />
     <item name="animatedStationWidgetHiddenView" type="id" />
     <item name="animatedStationWidgetSwitchState" type="id" />
+    <item name="stationViewPagerScrollLeft" type="id" />
+    <item name="stationViewPagerTitle" type="id" />
+    <item name="stationViewPagerScrollRight" type="id" />
+    <item name="stationViewPagerPager" type="id" />
 </resources>

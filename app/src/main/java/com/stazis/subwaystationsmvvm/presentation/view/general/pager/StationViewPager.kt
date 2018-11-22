@@ -2,35 +2,73 @@ package com.stazis.subwaystationsmvvm.presentation.view.general.pager
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.model.LatLng
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import kotlinx.android.synthetic.main.view_station_pager.view.*
+import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
+import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.viewPager
 
 class StationViewPager(context: Context?, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
+    private val title: TextViewWithFont by lazy { findViewById<TextViewWithFont>(R.id.stationViewPagerTitle) }
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_station_pager, this, true)
+        linearLayout {
+            orientation = LinearLayout.VERTICAL
+            padding = dip(10)
+            relativeLayout {
+                imageButton {
+                    id = R.id.stationViewPagerScrollLeft
+                    contentDescription = resources.getString(R.string.scroll_left)
+                    imageResource = R.drawable.ic_arrow_left
+                }
+                textViewWithFont("Montserrat-SemiBold") {
+                    id = R.id.stationViewPagerTitle
+                    textAlignment = View.TEXT_ALIGNMENT_CENTER
+                    textSize = 24f
+                }.lparams(matchParent) {
+                    startOf(R.id.stationViewPagerScrollRight)
+                    endOf(R.id.stationViewPagerScrollLeft)
+                    centerVertically()
+                }
+                imageButton {
+                    id = R.id.stationViewPagerScrollRight
+                    contentDescription = resources.getString(R.string.scroll_right)
+                    imageResource = R.drawable.ic_arrow_right
+                }.lparams {
+                    alignParentEnd()
+                }
+            }.lparams(matchParent) {
+                margin = dip(10)
+            }
+            viewPager {
+                id = R.id.stationViewPagerPager
+            }.lparams(matchParent, matchParent)
+        }
     }
 
     fun initialize(fragmentManager: FragmentManager, stations: List<Station>, location: LatLng) {
-        stationsPager.adapter = StationPagerAdapter(fragmentManager, stations, location)
-        stationsPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        val pager = findViewById<ViewPager>(R.id.stationViewPagerPager)
+        pager.adapter = StationPagerAdapter(fragmentManager, stations, location)
+        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
-                title.text = stationsPager.adapter!!.getPageTitle(position)
+                title.text = pager.adapter!!.getPageTitle(position)
             }
         })
-        title.text = (stationsPager.adapter as StationPagerAdapter).getPageTitle(stationsPager.currentItem)
-        scrollLeft.setOnClickListener { stationsPager.currentItem -= 1 }
-        scrollRight.setOnClickListener { stationsPager.currentItem += 1 }
+        title.text = (pager.adapter as StationPagerAdapter).getPageTitle(pager.currentItem)
+        findViewById<ImageButton>(R.id.stationViewPagerScrollLeft).setOnClickListener { pager.currentItem -= 1 }
+        findViewById<ImageButton>(R.id.stationViewPagerScrollRight).setOnClickListener { pager.currentItem += 1 }
     }
 }
