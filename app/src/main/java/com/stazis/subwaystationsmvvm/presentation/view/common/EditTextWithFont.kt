@@ -12,10 +12,16 @@ class EditTextWithFont @JvmOverloads constructor(context: Context?, attrs: Attri
 
     init {
         context?.withStyledAttributes(attrs, R.styleable.EditTextWithFont) {
-            getString(R.styleable.EditTextWithFont_typeface)?.let {
-                typeface = Typeface.createFromAsset(context.assets, "fonts/$it.ttf")
-            }
+            setTypefaceIfNotNull(getString(R.styleable.EditTextWithFont_typeface))
         }
         includeFontPadding = false
+    }
+
+    private fun setTypefaceIfNotNull(typeface: String?) {
+        typeface?.let { this.typeface = Typeface.createFromAsset(context.assets, "fonts/$typeface.ttf") }
+    }
+
+    fun withTypeface(typeface: String?) = this.apply {
+        setTypefaceIfNotNull(typeface)
     }
 }

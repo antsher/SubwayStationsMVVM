@@ -15,10 +15,16 @@ class TextViewWithFont @JvmOverloads constructor(
 
     init {
         context?.withStyledAttributes(attrs, R.styleable.TextViewWithFont) {
-            getString(R.styleable.TextViewWithFont_typeface)?.let {
-                typeface = Typeface.createFromAsset(context.assets, "fonts/$it.ttf")
-            }
+            setTypefaceIfNotNull(getString(R.styleable.TextViewWithFont_typeface))
         }
         includeFontPadding = false
+    }
+
+    private fun setTypefaceIfNotNull(typeface: String?) = typeface?.let {
+        this.typeface = Typeface.createFromAsset(context.assets, "fonts/$typeface.ttf")
+    }
+
+    fun withTypeface(typeface: String?) = this.apply {
+        setTypefaceIfNotNull(typeface)
     }
 }
