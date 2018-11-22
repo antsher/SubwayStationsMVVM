@@ -10,4 +10,9 @@
     <item name="stationListFragmentScroll" type="id" />
     <item name="stationListFragmentStationsContainer" type="id" />
     <item name="stationListFragmentNavigateToPager" type="id" />
+    <item name="editableTextViewText" type="id" />
+    <item name="editableTextViewButtons" type="id" />
+    <item name="editableTextViewEdit" type="id" />
+    <item name="editableTextViewSave" type="id" />
+    <item name="editableTextViewCancel" type="id" />
 </resources>
