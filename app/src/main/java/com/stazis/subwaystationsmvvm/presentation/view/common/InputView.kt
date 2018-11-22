@@ -1,50 +1,43 @@
 package com.stazis.subwaystationsmvvm.presentation.view.common
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Parcelable
 import android.text.InputType
-import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.LinearLayout
-import androidx.core.content.withStyledAttributes
 import com.stazis.subwaystationsmvvm.R
+import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.find
+import org.jetbrains.anko.matchParent
 
-class InputView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LinearLayout(context, attrs, defStyleAttr) {
+@SuppressLint("ViewConstructor")
+class InputView(context: Context, label: String) : _LinearLayout(context) {
 
-    val label by lazy { find<TextViewWithFont>(R.id.inputViewLabel) }
     val text by lazy { find<EditTextWithFont>(R.id.inputViewText) }
 
     init {
-        initUi()
-        context?.withStyledAttributes(attrs, R.styleable.InputView) {
-            label.text = getString(R.styleable.InputView_label) ?: ""
-        }
+        initUI()
+        find<TextViewWithFont>(R.id.inputViewLabel).text = label
     }
 
-    private fun initUi() = linearLayoutWithState {
-        orientation = VERTICAL
-        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+    private fun initUI() = linearLayoutWithState {
+        lparams(matchParent) {
+            orientation = VERTICAL
+        }
         textViewWithFont("Montserrat-SemiBold") {
             id = R.id.inputViewLabel
             textSize = 24f
-            with(LayoutParams(WRAP_CONTENT, WRAP_CONTENT)) {
-                leftMargin = dip(5)
-                bottomMargin = dip(5)
-                layoutParams = this
-            }
+        }.lparams {
+            bottomMargin = dip(5)
+            leftMargin = dip(5)
         }
         editTextWithFont("Montserrat-Regular") {
             id = R.id.inputViewText
-            textSize = 18f
             inputType = InputType.TYPE_CLASS_TEXT
             maxLines = 1
-            layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        }
+            textSize = 18f
+        }.lparams(matchParent)
     }
 
     class InputViewState(superState: Parcelable, var savedText: String) : View.BaseSavedState(superState)

@@ -2,4 +2,7 @@
 <resources>
     <item name="inputViewLabel" type="id" />
     <item name="inputViewText" type="id" />
+    <item name="homeFragmentName" type="id" />
+    <item name="homeFragmentDescription" type="id" />
+    <item name="homeFragmentMessage" type="id" />
 </resources>

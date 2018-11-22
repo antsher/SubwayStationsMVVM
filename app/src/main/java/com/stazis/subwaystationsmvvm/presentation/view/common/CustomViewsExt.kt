@@ -17,3 +17,6 @@ inline fun ViewManager.linearLayoutWithState(init: LinearLayoutWithState.() -> U
 
 inline fun ViewManager.relativeLayoutWithState(init: RelativeLayoutWithState.() -> Unit) =
     ankoView({ RelativeLayoutWithState(it) }, R.style.AppTheme, init)
+
+inline fun ViewManager.inputView(label: String, init: InputView.() -> Unit) =
+    ankoView({ InputView(it, label) }, R.style.AppTheme, init)

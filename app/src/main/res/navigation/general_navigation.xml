@@ -5,8 +5,7 @@
     app:startDestination="@+id/home_dest">
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.home.HomeFragment" />
     <fragment
         android:id="@+id/station_map_dest"
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment"

@@ -24,7 +24,7 @@ class TextViewWithFont @JvmOverloads constructor(
         this.typeface = Typeface.createFromAsset(context.assets, "fonts/$typeface.ttf")
     }
 
-    fun withTypeface(typeface: String?) = this.apply {
+    fun withTypeface(typeface: String?) = apply {
         setTypefaceIfNotNull(typeface)
     }
 }
