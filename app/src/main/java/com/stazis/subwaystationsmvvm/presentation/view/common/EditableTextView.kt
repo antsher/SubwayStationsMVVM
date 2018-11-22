@@ -1,15 +1,12 @@
 package com.stazis.subwaystationsmvvm.presentation.view.common
 
 import android.content.Context
-import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,15 +15,7 @@ import com.stazis.subwaystationsmvvm.helpers.hideSoftKeyboard
 import com.stazis.subwaystationsmvvm.helpers.showSoftKeyboard
 import org.jetbrains.anko.*
 
-class EditableTextView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null) :
-    RelativeLayout(context, attrs) {
-
-    companion object {
-
-        private const val SUPER_STATE_KEY = "SUPER_STATE_KEY"
-        private const val SAVED_TEXT_KEY = "SAVED_TEXT_KEY"
-        private const val EDIT_MODE_ENABLED_KEY = "EDIT_MODE_ENABLED_KEY"
-    }
+class EditableTextView(context: Context) : _RelativeLayout(context) {
 
     private val text by lazy { findViewById<EditTextWithFont>(R.id.editableTextViewText) }
     private val edit by lazy { findViewById<FloatingActionButton>(R.id.editableTextViewEdit) }
@@ -42,44 +31,42 @@ class EditableTextView @JvmOverloads constructor(context: Context?, attrs: Attri
     private var editModeEnabled = false
 
     init {
-        initUI()
-        text.inputType = InputType.TYPE_NULL
-    }
-
-    private fun initUI() = relativeLayout {
-        editTextWithFont("Montserrat-Regular") {
-            backgroundResource = android.R.color.transparent
-            freezesText = true
-            hint = resources.getString(R.string.enter_text)
-            id = R.id.editableTextViewText
-            textSize = 16f
-        }.lparams(matchParent)
-        linearLayout {
-            id = R.id.editableTextViewButtons
-            orientation = LinearLayout.VERTICAL
-            floatingActionButton {
-                id = R.id.editableTextViewEdit
-                imageResource = R.drawable.ic_edit
-                isGone = true
+        relativeLayout {
+            editTextWithFont("Montserrat-Regular") {
+                backgroundResource = android.R.color.transparent
+                freezesText = true
+                hint = resources.getString(R.string.enter_text)
+                inputType = InputType.TYPE_NULL
+                id = R.id.editableTextViewText
+                textSize = 16f
+            }.lparams(matchParent)
+            linearLayout {
+                id = R.id.editableTextViewButtons
+                orientation = LinearLayout.VERTICAL
+                floatingActionButton {
+                    id = R.id.editableTextViewEdit
+                    imageResource = R.drawable.ic_edit
+                    isGone = true
+                }.lparams {
+                    margin = dip(5)
+                }
+                floatingActionButton {
+                    id = R.id.editableTextViewSave
+                    imageResource = R.drawable.ic_check
+                    isGone = true
+                }.lparams {
+                    margin = dip(5)
+                }
+                floatingActionButton {
+                    id = R.id.editableTextViewCancel
+                    imageResource = R.drawable.ic_cross
+                    isGone = true
+                }.lparams {
+                    margin = dip(5)
+                }
             }.lparams {
-                margin = dip(5)
+                alignParentEnd()
             }
-            floatingActionButton {
-                id = R.id.editableTextViewSave
-                imageResource = R.drawable.ic_check
-                isGone = true
-            }.lparams {
-                margin = dip(5)
-            }
-            floatingActionButton {
-                id = R.id.editableTextViewCancel
-                imageResource = R.drawable.ic_cross
-                isGone = true
-            }.lparams {
-                margin = dip(5)
-            }
-        }.lparams {
-            alignParentEnd()
         }
     }
 
@@ -112,7 +99,7 @@ class EditableTextView @JvmOverloads constructor(context: Context?, attrs: Attri
         cancel.show()
         text.run {
             setText(savedText)
-            inputType = InputType.TYPE_CLASS_TEXT
+            inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
             isFocusableInTouchMode = true
             requestFocus()
         }
@@ -134,23 +121,21 @@ class EditableTextView @JvmOverloads constructor(context: Context?, attrs: Attri
         onTextUpdated.invoke()
     }
 
-    override fun onSaveInstanceState() = bundleOf(
-        SUPER_STATE_KEY to super.onSaveInstanceState(),
-        SAVED_TEXT_KEY to savedText,
-        EDIT_MODE_ENABLED_KEY to editModeEnabled
-    )
+    class EditableViewState(superState: Parcelable, var savedText: String, var editModeEnabled: Boolean) :
+        View.BaseSavedState(superState)
 
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        if (state is Bundle) {
-            super.onRestoreInstanceState(state.getParcelable(SUPER_STATE_KEY))
-            state.getString(SAVED_TEXT_KEY)?.let { savedText = it }
-            if (state.getBoolean(EDIT_MODE_ENABLED_KEY)) {
-                enableEditMode()
-            } else {
-                disableEditMode()
-            }
+    public override fun onSaveInstanceState(): Parcelable? =
+        EditableViewState(super.onSaveInstanceState()!!, text.text.toString(), editModeEnabled)
+
+    public override fun onRestoreInstanceState(state: Parcelable) = if (state is EditableViewState) {
+        super.onRestoreInstanceState(state.superState)
+        savedText = state.savedText
+        if (state.editModeEnabled) {
+            enableEditMode()
         } else {
-            super.onRestoreInstanceState(state)
+            disableEditMode()
         }
+    } else {
+        super.onRestoreInstanceState(state)
     }
 }

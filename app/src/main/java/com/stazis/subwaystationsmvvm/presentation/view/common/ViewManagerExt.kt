@@ -27,3 +27,6 @@ inline fun ViewManager.mapView(init: MapView.() -> Unit) = ankoView({ MapView(it
 
 inline fun ViewManager.floatingActionButton(init: FloatingActionButton.() -> Unit) =
     ankoView({ FloatingActionButton(it) }, R.style.AppTheme, init)
+
+inline fun ViewManager.editableTextView(init: EditableTextView.() -> Unit) =
+    ankoView({ EditableTextView(it) }, R.style.AppTheme, init)

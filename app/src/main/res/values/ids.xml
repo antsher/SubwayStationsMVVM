@@ -15,4 +15,9 @@
     <item name="editableTextViewEdit" type="id" />
     <item name="editableTextViewSave" type="id" />
     <item name="editableTextViewCancel" type="id" />
+    <item name="stationInfoActivityName" type="id" />
+    <item name="stationInfoActivityLatitude" type="id" />
+    <item name="stationInfoActivityLongitude" type="id" />
+    <item name="stationInfoActivityDistance" type="id" />
+    <item name="stationInfoActivityDescription" type="id" />
 </resources>
