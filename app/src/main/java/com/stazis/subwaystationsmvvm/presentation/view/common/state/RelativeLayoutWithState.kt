@@ -2,16 +2,11 @@ package com.stazis.subwaystationsmvvm.presentation.view.common.state
 
 import android.content.Context
 import android.os.Parcelable
-import android.util.AttributeSet
 import android.util.SparseArray
-import android.widget.RelativeLayout
 import androidx.core.view.children
+import org.jetbrains.anko._RelativeLayout
 
-class RelativeLayoutWithState @JvmOverloads constructor(
-    context: Context?,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+class RelativeLayoutWithState(context: Context) : _RelativeLayout(context) {
 
     override fun onSaveInstanceState(): Parcelable? = LayoutState(super.onSaveInstanceState()!!).also {
         it.childrenStates = SparseArray()

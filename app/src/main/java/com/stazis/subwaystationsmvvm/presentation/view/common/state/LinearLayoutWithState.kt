@@ -2,16 +2,11 @@ package com.stazis.subwaystationsmvvm.presentation.view.common.state
 
 import android.content.Context
 import android.os.Parcelable
-import android.util.AttributeSet
 import android.util.SparseArray
-import android.widget.LinearLayout
 import androidx.core.view.children
+import org.jetbrains.anko._LinearLayout
 
-class LinearLayoutWithState @JvmOverloads constructor(
-    context: Context?,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+class LinearLayoutWithState(context: Context) : _LinearLayout(context) {
 
     override fun onSaveInstanceState(): Parcelable? = LayoutState(super.onSaveInstanceState()!!).also {
         it.childrenStates = SparseArray()
