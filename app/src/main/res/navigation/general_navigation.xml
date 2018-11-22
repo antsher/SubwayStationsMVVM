@@ -11,8 +11,7 @@
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment" />
     <fragment
         android:id="@+id/station_list_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment"
-        tools:layout="@layout/fragment_station_list" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment" />
     <fragment
         android:id="@+id/station_pager_dest"
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment"
