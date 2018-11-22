@@ -8,8 +8,7 @@
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.home.HomeFragment" />
     <fragment
         android:id="@+id/station_map_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment"
-        tools:layout="@layout/fragment_station_map" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment" />
     <fragment
         android:id="@+id/station_list_dest"
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment"

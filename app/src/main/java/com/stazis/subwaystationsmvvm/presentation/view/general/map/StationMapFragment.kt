@@ -10,27 +10,45 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.maps.android.SphericalUtil
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
+import com.stazis.subwaystationsmvvm.presentation.view.common.floatingActionButton
+import com.stazis.subwaystationsmvvm.presentation.view.common.mapView
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
-import kotlinx.android.synthetic.main.fragment_station_map.*
+import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.UI
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.roundToInt
 
 class StationMapFragment : BaseFragment() {
 
     override val vm by sharedViewModel<StationsViewModel>()
+    val map: MapView by lazy { root.findViewById<MapView>(R.id.mapStationFragmentMap) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        (inflater.inflate(R.layout.fragment_station_map, container, false) as ViewGroup).apply { root = this }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
+        relativeLayout {
+            mapView {
+                id = R.id.mapStationFragmentMap
+            }.lparams(width = matchParent, height = matchParent)
+            floatingActionButton {
+                id = R.id.mapStationFragmentNavigateToPager
+                imageResource = R.drawable.ic_arrow_right
+            }.lparams {
+                alignParentEnd()
+                margin = dip(10)
+            }
+        }
+    }.view.apply { root = this as ViewGroup }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +68,7 @@ class StationMapFragment : BaseFragment() {
 
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addMarkersToMapAndSetListeners(initMarkers(stationsAndLocation))
-        navigateToPager.setOnClickListener {
+        root.findViewById<FloatingActionButton>(R.id.mapStationFragmentNavigateToPager).setOnClickListener {
             bundleOf(
                 STATIONS_KEY to stationsAndLocation.first,
                 LOCATION_KEY to stationsAndLocation.second.toLatLng()
@@ -90,7 +108,7 @@ class StationMapFragment : BaseFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        map?.onSaveInstanceState(outState)
+        map.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 }

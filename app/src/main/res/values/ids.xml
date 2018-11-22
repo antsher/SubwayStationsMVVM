@@ -5,4 +5,6 @@
     <item name="homeFragmentName" type="id" />
     <item name="homeFragmentDescription" type="id" />
     <item name="homeFragmentMessage" type="id" />
+    <item name="mapStationFragmentMap" type="id" />
+    <item name="mapStationFragmentNavigateToPager" type="id" />
 </resources>
