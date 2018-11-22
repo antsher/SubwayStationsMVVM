@@ -48,6 +48,10 @@ android {
 }
 
 dependencies {
+    // Anko
+    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
     // Androidx
     implementation "com.google.android.material:material:$androidx_version"
     implementation "androidx.core:core-ktx:$androidx_version"
