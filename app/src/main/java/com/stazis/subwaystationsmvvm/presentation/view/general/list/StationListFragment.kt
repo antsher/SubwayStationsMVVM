@@ -44,9 +44,7 @@ class StationListFragment : BaseFragment() {
         relativeLayout {
             scrollView {
                 id = R.id.stationListFragmentScroll
-                stationsContainer = verticalLayout {
-
-                }.lparams(matchParent)
+                stationsContainer = verticalLayout().lparams(matchParent)
             }.lparams(matchParent)
             navigateToPager = floatingActionButton {
                 imageResource = R.drawable.ic_arrow_right

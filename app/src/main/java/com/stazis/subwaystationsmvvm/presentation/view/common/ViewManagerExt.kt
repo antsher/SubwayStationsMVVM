@@ -16,6 +16,7 @@ inline fun ViewManager.editTextWithFont(typeface: String? = null, init: EditText
 inline fun ViewManager.inputView(label: String, init: InputView.() -> Unit) =
     ankoView({ InputView(it, label) }, R.style.AppTheme, init)
 
+fun ViewManager.mapView() = mapView { }
 inline fun ViewManager.mapView(init: MapView.() -> Unit) = ankoView({ MapView(it) }, R.style.AppTheme, init)
 
 inline fun ViewManager.floatingActionButton(init: FloatingActionButton.() -> Unit) =

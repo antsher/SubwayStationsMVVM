@@ -13,7 +13,6 @@ import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.UI
-import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import kotlin.math.roundToInt
 
@@ -39,9 +38,7 @@ class StationInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         verticalLayout {
-            setPaddingRelative(dip(10), paddingTop, paddingEnd, paddingBottom)
-            topPadding = dip(10)
-            setPaddingRelative(paddingStart, paddingTop, dip(10), paddingBottom)
+            setPaddingRelative(dip(10), dip(10), dip(10), paddingBottom)
             latitude = textViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.latitude)
                 textSize = 16f

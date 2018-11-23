@@ -38,9 +38,7 @@ class StationMapFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         relativeLayout {
-            map = mapView {
-
-            }.lparams(matchParent, matchParent)
+            map = mapView().lparams(matchParent, matchParent)
             navigateToPager = floatingActionButton {
                 imageResource = R.drawable.ic_arrow_right
             }.lparams {
