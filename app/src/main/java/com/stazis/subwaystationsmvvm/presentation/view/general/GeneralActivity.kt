@@ -13,7 +13,6 @@ import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.helpers.PermissionState
 import com.stazis.subwaystationsmvvm.helpers.checkPermissionState
 import com.stazis.subwaystationsmvvm.helpers.requestPermission
-import com.stazis.subwaystationsmvvm.model.entities.Station
 import kotlinx.android.synthetic.main.activity_general.*
 
 @SuppressLint("MissingPermission")
@@ -29,7 +28,6 @@ class GeneralActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        emptyList<Station>()
         setContentView(R.layout.activity_general)
         bottomNavigation.setupWithNavController(findNavController(R.id.nav_host_fragment))
         requestPermissions()

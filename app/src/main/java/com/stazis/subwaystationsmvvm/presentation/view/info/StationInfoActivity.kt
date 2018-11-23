@@ -36,35 +36,30 @@ class StationInfoActivity : BaseActivity() {
 
     private fun initUI() = relativeLayout {
         verticalLayout {
-            name = textViewWithFont("Montserrat-SemiBold") {
-                freezesText = true
+            name = freezingTextViewWithFont("Montserrat-SemiBold") {
                 textSize = 24f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            latitude = textViewWithFont("Montserrat-Regular") {
+            latitude = freezingTextViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.latitude)
-                freezesText = true
                 textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            longitude = textViewWithFont("Montserrat-Regular") {
+            longitude = freezingTextViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.longitude)
-                freezesText = true
                 textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            distance = textViewWithFont("Montserrat-Medium") {
-                freezesText = true
+            distance = freezingTextViewWithFont("Montserrat-Medium") {
                 textSize = 24f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            textViewWithFont("Montserrat-SemiBold") {
+            freezingTextViewWithFont("Montserrat-SemiBold") {
                 text = resources.getString(R.string.description)
-                freezesText = true
                 textSize = 20f
             }.lparams {
                 bottomMargin = dip(10)

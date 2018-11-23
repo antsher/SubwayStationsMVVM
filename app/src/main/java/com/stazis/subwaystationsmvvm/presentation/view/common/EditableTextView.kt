@@ -42,8 +42,8 @@ class EditableTextView(context: Context, private val onTextUpdated: (String) -> 
     @SuppressLint("ClickableViewAccessibility")
     private fun initUI() = relativeLayout {
         text = editTextWithFont("Montserrat-Regular") {
+            id = R.id.editableTextViewText
             backgroundResource = android.R.color.transparent
-            freezesText = true
             hint = resources.getString(R.string.enter_text)
             textSize = 16f
         }.lparams(matchParent) {
@@ -99,9 +99,7 @@ class EditableTextView(context: Context, private val onTextUpdated: (String) -> 
                 }
             })
             setOnClickListener {
-                if (inEditMode) {
-                    disableEditMode()
-                } else {
+                if (!inEditMode) {
                     enableEditMode()
                 }
             }

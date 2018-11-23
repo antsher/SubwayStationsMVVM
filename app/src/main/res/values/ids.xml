@@ -11,4 +11,5 @@
     <item name="stationViewPagerScrollRight" type="id" />
     <item name="stationViewPagerPager" type="id" />
     <item name="stationInfoActivityDescription" type="id"/>
+    <item name="editableTextViewText" type="id" />
 </resources>

@@ -27,3 +27,9 @@ inline fun ViewManager.editableTextView(noinline onTextUpdated: (String) -> Unit
 
 inline fun ViewManager.stationViewPager(init: StationViewPager.() -> Unit) =
     ankoView({ StationViewPager(it) }, R.style.AppTheme, init)
+
+inline fun ViewManager.freezingTextViewWithFont(typeface: String? = null, init: TextViewWithFont.() -> Unit) =
+    textViewWithFont(typeface) {
+        init()
+        freezesText = true
+    }
