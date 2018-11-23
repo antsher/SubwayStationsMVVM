@@ -6,7 +6,6 @@ import com.google.maps.android.SphericalUtil
 import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.helpers.LocationHelper
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
-import com.stazis.subwaystationsmvvm.presentation.view.info.DetailedStation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -17,7 +16,11 @@ class StationInfoViewModel(
     private val locationHelper: LocationHelper
 ) : BaseViewModel() {
 
-    val detailedStationAndLocation = MutableLiveData<Pair<DetailedStation, Int>>()
+    val stationName = MutableLiveData<String>()
+    val stationLatitude = MutableLiveData<Double>()
+    val stationLongitude = MutableLiveData<Double>()
+    val stationDescription = MutableLiveData<String>()
+    val stationDistance = MutableLiveData<Int>()
 
     init {
         isLoading.value = true
@@ -35,7 +38,11 @@ class StationInfoViewModel(
             locationHelper.getLocation().toLatLng()
         ).roundToInt()
         try {
-            detailedStationAndLocation.value = DetailedStation(basicInfo, detailedInfo) to distance
+            stationName.value = basicInfo.name
+            stationLatitude.value = basicInfo.latitude
+            stationLongitude.value = basicInfo.longitude
+            stationDistance.value = distance
+            stationDescription.value = detailedInfo.description
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
@@ -53,6 +60,7 @@ class StationInfoViewModel(
     private suspend fun updateStationDescription(description: String) {
         try {
             message.value = repository.updateStationDescription(name, description)
+            stationDescription.value = description
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }

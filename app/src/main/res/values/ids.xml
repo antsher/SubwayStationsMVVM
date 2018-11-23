@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="homeFragmentScroll" type="id" />
     <item name="homeFragmentName" type="id" />
     <item name="homeFragmentDescription" type="id" />
     <item name="homeFragmentMessage" type="id" />
@@ -9,5 +10,5 @@
     <item name="stationViewPagerScrollLeft" type="id" />
     <item name="stationViewPagerScrollRight" type="id" />
     <item name="stationViewPagerPager" type="id" />
-    <item name="homeFragmentScroll" type="id" />
+    <item name="stationInfoActivityDescription" type="id"/>
 </resources>

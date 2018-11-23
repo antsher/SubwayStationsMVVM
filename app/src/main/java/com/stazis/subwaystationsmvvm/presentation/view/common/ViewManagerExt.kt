@@ -29,8 +29,8 @@ inline fun ViewManager.mapView(init: MapView.() -> Unit) = ankoView({ MapView(it
 inline fun ViewManager.floatingActionButton(init: FloatingActionButton.() -> Unit) =
     ankoView({ FloatingActionButton(it) }, R.style.AppTheme, init)
 
-inline fun ViewManager.editableTextView(init: EditableTextView.() -> Unit) =
-    ankoView({ EditableTextView(it) }, R.style.AppTheme, init)
+inline fun ViewManager.editableTextView(noinline onTextUpdated: (String) -> Unit, init: EditableTextView.() -> Unit) =
+    ankoView({ EditableTextView(it, onTextUpdated) }, R.style.AppTheme, init)
 
 inline fun ViewManager.stationViewPager(init: StationViewPager.() -> Unit) =
     ankoView({ StationViewPager(it) }, R.style.AppTheme, init)

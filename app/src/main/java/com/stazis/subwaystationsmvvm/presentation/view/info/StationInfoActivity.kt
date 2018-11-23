@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.stazis.subwaystationsmvvm.R
-import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.*
 import com.stazis.subwaystationsmvvm.presentation.vm.StationInfoViewModel
 import org.jetbrains.anko.dip
@@ -33,7 +32,6 @@ class StationInfoActivity : BaseActivity() {
         initUI()
         super.onCreate(savedInstanceState)
         bindViewModel()
-        description.onTextUpdated = this::onDescriptionUpdated
     }
 
     private fun initUI() = relativeLayout {
@@ -71,49 +69,33 @@ class StationInfoActivity : BaseActivity() {
             }.lparams {
                 bottomMargin = dip(10)
             }
-            description = editableTextView {
-
+            description = editableTextView(this@StationInfoActivity::onDescriptionUpdated) {
+                id = R.id.stationInfoActivityDescription
             }.lparams(matchParent)
         }.lparams(matchParent) {
             leftMargin = dip(10)
             rightMargin = dip(10)
-            topMargin = dip(10)
         }
     }
 
     override fun bindViewModel() {
         super.bindViewModel()
-        vm.detailedStationAndLocation.observe(this, Observer(this::updateUI))
+        vm.stationName.observe(this, Observer { name.text = it })
+        vm.stationLatitude.observe(this, Observer { latitude.text = String.format("%s %f", latitude.text, it) })
+        vm.stationLongitude.observe(this, Observer { longitude.text = String.format("%s %f", longitude.text, it) })
+        vm.stationDistance.observe(this, Observer {
+            distance.text = String.format(
+                "%s %d %s",
+                resources.getString(R.string.distance_to_station_is),
+                it,
+                resources.getString(R.string.meters)
+            )
+        })
+        vm.stationDescription.observe(this, Observer { description.updateSavedText(it) })
     }
 
-    private fun updateUI(detailedStationAndLocation: Pair<DetailedStation, Int>) {
-        showStationInfo(detailedStationAndLocation.first)
-        showDistance(detailedStationAndLocation.second)
-        description.enable()
-    }
-
-    private fun showStationInfo(detailedStation: DetailedStation) {
-        showBasicStationInfo(detailedStation.station)
-        description.savedText = detailedStation.detailedInfo.description
-    }
-
-    private fun showBasicStationInfo(station: Station) {
-        name.text = station.name
-        latitude.text = String.format("%s %f", latitude.text, station.latitude)
-        longitude.text = String.format("%s %f", longitude.text, station.longitude)
-    }
-
-    private fun showDistance(distanceToStation: Int) {
-        distance.text = String.format(
-            "%s %d %s",
-            resources.getString(R.string.distance_to_station_is),
-            distanceToStation,
-            resources.getString(R.string.meters)
-        )
-    }
-
-    private fun onDescriptionUpdated() {
+    private fun onDescriptionUpdated(newDescription: String) {
         firebaseAnalytics.logEvent("updated_station_description", null)
-        vm.onDescriptionUpdated(description.savedText)
+        vm.onDescriptionUpdated(newDescription)
     }
 }
