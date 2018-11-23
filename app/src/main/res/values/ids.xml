@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="inputViewLabel" type="id" />
-    <item name="inputViewText" type="id" />
     <item name="homeFragmentName" type="id" />
     <item name="homeFragmentDescription" type="id" />
     <item name="homeFragmentMessage" type="id" />
-    <item name="stationMapFragmentMap" type="id" />
-    <item name="stationMapFragmentNavigateToPager" type="id" />
     <item name="stationListFragmentScroll" type="id" />
-    <item name="stationListFragmentStationsContainer" type="id" />
-    <item name="stationListFragmentNavigateToPager" type="id" />
-    <item name="editableTextViewText" type="id" />
     <item name="editableTextViewButtons" type="id" />
-    <item name="editableTextViewEdit" type="id" />
-    <item name="editableTextViewSave" type="id" />
-    <item name="editableTextViewCancel" type="id" />
-    <item name="stationInfoActivityName" type="id" />
-    <item name="stationInfoActivityLatitude" type="id" />
-    <item name="stationInfoActivityLongitude" type="id" />
-    <item name="stationInfoActivityDistance" type="id" />
-    <item name="stationInfoActivityDescription" type="id" />
-    <item name="animatedStationWidgetHiddenView" type="id" />
     <item name="animatedStationWidgetSwitchState" type="id" />
     <item name="stationViewPagerScrollLeft" type="id" />
-    <item name="stationViewPagerTitle" type="id" />
     <item name="stationViewPagerScrollRight" type="id" />
     <item name="stationViewPagerPager" type="id" />
-    <item name="stationInfoFragmentLatitude" type="id" />
-    <item name="stationInfoFragmentLongitude" type="id" />
-    <item name="stationInfoFragmentDistance" type="id" />
+    <item name="homeFragmentScroll" type="id" />
 </resources>

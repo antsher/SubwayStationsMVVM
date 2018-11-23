@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
 import androidx.core.os.bundleOf
 import androidx.core.view.forEach
 import androidx.lifecycle.Observer
@@ -37,20 +36,19 @@ class StationListFragment : BaseFragment() {
     }
 
     override val vm by viewModel<StationsViewModel>()
-    private val stationsContainer by lazy { root.findViewById<LinearLayout>(R.id.stationListFragmentStationsContainer) }
+    private lateinit var stationsContainer: LinearLayout
+    private lateinit var navigateToPager: FloatingActionButton
     private var states = HashMap<String, Boolean>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         relativeLayout {
             scrollView {
                 id = R.id.stationListFragmentScroll
-                linearLayout {
-                    id = R.id.stationListFragmentStationsContainer
-                    orientation = VERTICAL
+                stationsContainer = verticalLayout {
+
                 }.lparams(matchParent)
             }.lparams(matchParent)
-            floatingActionButton {
-                id = R.id.stationListFragmentNavigateToPager
+            navigateToPager = floatingActionButton {
                 imageResource = R.drawable.ic_arrow_right
             }.lparams {
                 alignParentEnd()
@@ -75,7 +73,7 @@ class StationListFragment : BaseFragment() {
 
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addStationViewsToContainer(initStationViews(stationsAndLocation))
-        root.findViewById<FloatingActionButton>(R.id.stationListFragmentNavigateToPager).setOnClickListener {
+        navigateToPager.setOnClickListener {
             bundleOf(
                 STATIONS_KEY to stationsAndLocation.first,
                 LOCATION_KEY to stationsAndLocation.second.toLatLng()

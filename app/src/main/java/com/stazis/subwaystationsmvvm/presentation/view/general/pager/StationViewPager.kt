@@ -2,8 +2,6 @@ package com.stazis.subwaystationsmvvm.presentation.view.general.pager
 
 import android.content.Context
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.model.LatLng
@@ -16,20 +14,21 @@ import org.jetbrains.anko.support.v4.viewPager
 
 class StationViewPager(context: Context) : _LinearLayout(context) {
 
-    private val title: TextViewWithFont by lazy { findViewById<TextViewWithFont>(R.id.stationViewPagerTitle) }
+    private lateinit var title: TextViewWithFont
+    private lateinit var pager: ViewPager
 
     init {
-        linearLayout {
-            orientation = LinearLayout.VERTICAL
+        verticalLayout {
             padding = dip(10)
             relativeLayout {
                 imageButton {
                     id = R.id.stationViewPagerScrollLeft
                     contentDescription = resources.getString(R.string.scroll_left)
                     imageResource = R.drawable.ic_arrow_left
+                }.setOnClickListener {
+                    pager.currentItem -= 1
                 }
-                textViewWithFont("Montserrat-SemiBold") {
-                    id = R.id.stationViewPagerTitle
+                title = textViewWithFont("Montserrat-SemiBold") {
                     textAlignment = View.TEXT_ALIGNMENT_CENTER
                     textSize = 24f
                 }.lparams(matchParent) {
@@ -43,11 +42,13 @@ class StationViewPager(context: Context) : _LinearLayout(context) {
                     imageResource = R.drawable.ic_arrow_right
                 }.lparams {
                     alignParentEnd()
+                }.setOnClickListener {
+                    pager.currentItem += 1
                 }
             }.lparams(matchParent) {
                 margin = dip(10)
             }
-            viewPager {
+            pager = viewPager {
                 id = R.id.stationViewPagerPager
             }.lparams(matchParent, matchParent)
         }
@@ -66,7 +67,5 @@ class StationViewPager(context: Context) : _LinearLayout(context) {
             }
         })
         title.text = (pager.adapter as StationPagerAdapter).getPageTitle(pager.currentItem)
-        findViewById<ImageButton>(R.id.stationViewPagerScrollLeft).setOnClickListener { pager.currentItem -= 1 }
-        findViewById<ImageButton>(R.id.stationViewPagerScrollRight).setOnClickListener { pager.currentItem += 1 }
     }
 }

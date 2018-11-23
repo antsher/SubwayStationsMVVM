@@ -1,7 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.info
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.stazis.subwaystationsmvvm.R
@@ -9,9 +8,9 @@ import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.*
 import com.stazis.subwaystationsmvvm.presentation.vm.StationInfoViewModel
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.relativeLayout
+import org.jetbrains.anko.verticalLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -24,11 +23,11 @@ class StationInfoActivity : BaseActivity() {
 
     override val vm: StationInfoViewModel by viewModel(parameters = { parametersOf(intent.getStringExtra(NAME_KEY)) })
     private val firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    private val name by lazy { findViewById<TextViewWithFont>(R.id.stationInfoActivityName) }
-    private val latitude by lazy { findViewById<TextViewWithFont>(R.id.stationInfoActivityLatitude) }
-    private val longitude by lazy { findViewById<TextViewWithFont>(R.id.stationInfoActivityLongitude) }
-    private val distance by lazy { findViewById<TextViewWithFont>(R.id.stationInfoActivityDistance) }
-    private val description by lazy { findViewById<EditableTextView>(R.id.stationInfoActivityDescription) }
+    private lateinit var name: TextViewWithFont
+    private lateinit var latitude: TextViewWithFont
+    private lateinit var longitude: TextViewWithFont
+    private lateinit var distance: TextViewWithFont
+    private lateinit var description: EditableTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initUI()
@@ -38,34 +37,29 @@ class StationInfoActivity : BaseActivity() {
     }
 
     private fun initUI() = relativeLayout {
-        linearLayout {
-            orientation = LinearLayout.VERTICAL
-            textViewWithFont("Montserrat-SemiBold") {
+        verticalLayout {
+            name = textViewWithFont("Montserrat-SemiBold") {
                 freezesText = true
-                id = R.id.stationInfoActivityName
                 textSize = 24f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            textViewWithFont("Montserrat-Regular") {
+            latitude = textViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.latitude)
                 freezesText = true
-                id = R.id.stationInfoActivityLatitude
                 textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            textViewWithFont("Montserrat-Regular") {
+            longitude = textViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.longitude)
                 freezesText = true
-                id = R.id.stationInfoActivityLongitude
                 textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            textViewWithFont("Montserrat-Medium") {
+            distance = textViewWithFont("Montserrat-Medium") {
                 freezesText = true
-                id = R.id.stationInfoActivityDistance
                 textSize = 24f
             }.lparams {
                 bottomMargin = dip(10)
@@ -77,8 +71,8 @@ class StationInfoActivity : BaseActivity() {
             }.lparams {
                 bottomMargin = dip(10)
             }
-            editableTextView {
-                id = R.id.stationInfoActivityDescription
+            description = editableTextView {
+
             }.lparams(matchParent)
         }.lparams(matchParent) {
             leftMargin = dip(10)

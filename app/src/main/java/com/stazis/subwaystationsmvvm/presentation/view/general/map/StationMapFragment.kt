@@ -33,15 +33,15 @@ import kotlin.math.roundToInt
 class StationMapFragment : BaseFragment() {
 
     override val vm by viewModel<StationsViewModel>()
-    val map: MapView by lazy { root.findViewById<MapView>(R.id.stationMapFragmentMap) }
+    private lateinit var map: MapView
+    private lateinit var navigateToPager: FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         relativeLayout {
-            mapView {
-                id = R.id.stationMapFragmentMap
-            }.lparams(width = matchParent, height = matchParent)
-            floatingActionButton {
-                id = R.id.stationMapFragmentNavigateToPager
+            map = mapView {
+
+            }.lparams(matchParent, matchParent)
+            navigateToPager = floatingActionButton {
                 imageResource = R.drawable.ic_arrow_right
             }.lparams {
                 alignParentEnd()
@@ -68,7 +68,7 @@ class StationMapFragment : BaseFragment() {
 
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addMarkersToMapAndSetListeners(initMarkers(stationsAndLocation))
-        root.findViewById<FloatingActionButton>(R.id.stationMapFragmentNavigateToPager).setOnClickListener {
+        navigateToPager.setOnClickListener {
             bundleOf(
                 STATIONS_KEY to stationsAndLocation.first,
                 LOCATION_KEY to stationsAndLocation.second.toLatLng()

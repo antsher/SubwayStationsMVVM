@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
-import android.widget.LinearLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,10 +16,10 @@ import org.jetbrains.anko.*
 
 class EditableTextView(context: Context) : _RelativeLayout(context) {
 
-    private val text by lazy { findViewById<EditTextWithFont>(R.id.editableTextViewText) }
-    private val edit by lazy { findViewById<FloatingActionButton>(R.id.editableTextViewEdit) }
-    private val save by lazy { findViewById<FloatingActionButton>(R.id.editableTextViewSave) }
-    private val cancel by lazy { findViewById<FloatingActionButton>(R.id.editableTextViewCancel) }
+    private lateinit var text: EditTextWithFont
+    private lateinit var edit: FloatingActionButton
+    private lateinit var save: FloatingActionButton
+    private lateinit var cancel: FloatingActionButton
 
     var onTextUpdated = { }
     var savedText: String = ""
@@ -32,33 +31,28 @@ class EditableTextView(context: Context) : _RelativeLayout(context) {
 
     init {
         relativeLayout {
-            editTextWithFont("Montserrat-Regular") {
+            text = editTextWithFont("Montserrat-Regular") {
                 backgroundResource = android.R.color.transparent
                 freezesText = true
                 hint = resources.getString(R.string.enter_text)
                 inputType = InputType.TYPE_NULL
-                id = R.id.editableTextViewText
                 textSize = 16f
             }.lparams(matchParent)
-            linearLayout {
+            verticalLayout {
                 id = R.id.editableTextViewButtons
-                orientation = LinearLayout.VERTICAL
-                floatingActionButton {
-                    id = R.id.editableTextViewEdit
+                edit = floatingActionButton {
                     imageResource = R.drawable.ic_edit
                     isGone = true
                 }.lparams {
                     margin = dip(5)
                 }
-                floatingActionButton {
-                    id = R.id.editableTextViewSave
+                save = floatingActionButton {
                     imageResource = R.drawable.ic_check
                     isGone = true
                 }.lparams {
                     margin = dip(5)
                 }
-                floatingActionButton {
-                    id = R.id.editableTextViewCancel
+                cancel = floatingActionButton {
                     imageResource = R.drawable.ic_cross
                     isGone = true
                 }.lparams {
@@ -132,6 +126,7 @@ class EditableTextView(context: Context) : _RelativeLayout(context) {
         savedText = state.savedText
         if (state.editModeEnabled) {
             enableEditMode()
+//            TODO: fix a bug which doesn't enable save after rotation
         } else {
             disableEditMode()
         }

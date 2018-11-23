@@ -24,7 +24,7 @@ class AnimatedStationWidget(
         private const val ANIMATION_DURATION = 300L
     }
 
-    private val hiddenView: LinearLayout by lazy { findViewById<LinearLayout>(R.id.animatedStationWidgetHiddenView) }
+    private lateinit var hiddenView: LinearLayout
     val stationName = station.name
     private var animationInProgress = false
     private val dpRatio = resources.displayMetrics.density
@@ -35,8 +35,7 @@ class AnimatedStationWidget(
     }
 
     private fun initUI(station: Station, stationDistance: Int, onClicked: () -> Unit) = relativeLayout {
-        linearLayout {
-            orientation = LinearLayout.VERTICAL
+        verticalLayout {
             textViewWithFont("Montserrat-SemiBold") {
                 text = stationName
                 textSize = 24f
@@ -49,10 +48,8 @@ class AnimatedStationWidget(
             }.lparams {
                 topMargin = dip(5)
             }
-            linearLayout {
-                id = R.id.animatedStationWidgetHiddenView
+            hiddenView = verticalLayout {
                 alpha = 0f
-                orientation = LinearLayout.VERTICAL
                 translationY = dip(-50).toFloat()
                 visibility = View.GONE
                 textViewWithFont("Montserrat-Italic") {

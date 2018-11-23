@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.stazis.subwaystationsmvvm.R
@@ -17,8 +16,8 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         scrollView {
-            linearLayout {
-                orientation = LinearLayout.VERTICAL
+            id = R.id.homeFragmentScroll
+            verticalLayout {
                 topPadding = dip(20)
                 inputView(resources.getString(R.string.name)) {
                     id = R.id.homeFragmentName
