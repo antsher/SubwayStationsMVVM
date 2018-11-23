@@ -7,7 +7,8 @@ import android.view.View
 import android.widget.LinearLayout
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.normalTextViewWithFont
 import org.jetbrains.anko.*
 
 @SuppressLint("ViewConstructor")
@@ -36,15 +37,13 @@ class AnimatedStationWidget(
 
     private fun initUI(station: Station, stationDistance: Int, onClicked: () -> Unit) = relativeLayout {
         verticalLayout {
-            textViewWithFont("Montserrat-SemiBold") {
+            bigTextViewWithFont("Montserrat-SemiBold") {
                 text = stationName
-                textSize = 24f
             }.lparams {
                 topMargin = dip(10)
             }
-            textViewWithFont("Montserrat-Light") {
+            normalTextViewWithFont("Montserrat-Light") {
                 text = String.format("%d%s", stationDistance, resources.getString(R.string.meter_short))
-                textSize = 16f
             }.lparams {
                 topMargin = dip(5)
             }
@@ -52,15 +51,13 @@ class AnimatedStationWidget(
                 alpha = 0f
                 translationY = dip(-50).toFloat()
                 visibility = View.GONE
-                textViewWithFont("Montserrat-Italic") {
+                normalTextViewWithFont("Montserrat-Italic") {
                     text = String.format("%s %f", resources.getString(R.string.latitude), station.latitude)
-                    textSize = 18f
                 }.lparams {
                     bottomMargin = dip(5)
                 }
-                textViewWithFont("Montserrat-Italic") {
+                normalTextViewWithFont("Montserrat-Italic") {
                     text = String.format("%s %f", resources.getString(R.string.longitude), station.longitude)
-                    textSize = 18f
                 }
             }.lparams(matchParent) {
                 topMargin = dip(10)

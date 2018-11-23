@@ -41,11 +41,10 @@ class EditableTextView(context: Context, private val onTextUpdated: (String) -> 
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initUI() = relativeLayout {
-        text = editTextWithFont("Montserrat-Regular") {
+        text = normalEditTextWithFont("Montserrat-Regular") {
             id = R.id.editableTextViewText
             backgroundResource = android.R.color.transparent
             hint = resources.getString(R.string.enter_text)
-            textSize = 16f
         }.lparams(matchParent) {
             leftOf(R.id.editableTextViewButtons)
         }

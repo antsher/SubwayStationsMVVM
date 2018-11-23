@@ -10,7 +10,8 @@ import com.google.maps.android.SphericalUtil
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.normalTextViewWithFont
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.verticalLayout
@@ -39,21 +40,17 @@ class StationInfoFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         verticalLayout {
             setPaddingRelative(dip(10), dip(10), dip(10), paddingBottom)
-            latitude = textViewWithFont("Montserrat-Regular") {
+            latitude = normalTextViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.latitude)
-                textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            longitude = textViewWithFont("Montserrat-Regular") {
+            longitude = normalTextViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.longitude)
-                textSize = 16f
             }.lparams {
                 bottomMargin = dip(10)
             }
-            distance = textViewWithFont("Montserrat-Medium") {
-                textSize = 24f
-            }.lparams {
+            distance = bigTextViewWithFont("Montserrat-Medium").lparams {
                 bottomMargin = dip(10)
             }
         }

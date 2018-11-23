@@ -8,7 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.textViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.viewPager
 
@@ -28,9 +28,8 @@ class StationViewPager(context: Context) : _LinearLayout(context) {
                 }.setOnClickListener {
                     pager.currentItem -= 1
                 }
-                title = textViewWithFont("Montserrat-SemiBold") {
+                title = bigTextViewWithFont("Montserrat-SemiBold") {
                     textAlignment = View.TEXT_ALIGNMENT_CENTER
-                    textSize = 24f
                 }.lparams(matchParent) {
                     startOf(R.id.stationViewPagerScrollRight)
                     endOf(R.id.stationViewPagerScrollLeft)

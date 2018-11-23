@@ -23,16 +23,13 @@ class InputView(context: Context, label: String) : _LinearLayout(context) {
 
     private fun initUI() = verticalLayout {
         lparams(matchParent)
-        label = textViewWithFont("Montserrat-SemiBold") {
-            textSize = 24f
-        }.lparams {
+        label = bigTextViewWithFont("Montserrat-SemiBold").lparams {
             bottomMargin = dip(5)
             leftMargin = dip(5)
         }
-        text = editTextWithFont("Montserrat-Regular") {
+        text = normalEditTextWithFont("Montserrat-Regular") {
             inputType = InputType.TYPE_CLASS_TEXT
             maxLines = 1
-            textSize = 18f
         }.lparams(matchParent)
     }
 
