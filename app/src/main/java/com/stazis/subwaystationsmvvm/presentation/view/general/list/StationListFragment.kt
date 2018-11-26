@@ -72,12 +72,9 @@ class StationListFragment : BaseFragment() {
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addStationViewsToContainer(initStationViews(stationsAndLocation))
         navigateToPager.setOnClickListener {
-            bundleOf(
-                STATIONS_KEY to stationsAndLocation.first,
-                LOCATION_KEY to stationsAndLocation.second.toLatLng()
-            ).run {
-                findNavController().navigate(R.id.station_pager_dest, this)
-            }
+            findNavController().navigate(R.id.station_pager_dest, with(stationsAndLocation) {
+                bundleOf(STATIONS_KEY to first, LOCATION_KEY to second.toLatLng())
+            })
         }
     }
 
