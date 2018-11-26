@@ -66,17 +66,18 @@ class GeneralActivity : AppCompatActivity() {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, locationPermission)) {
                         askNicelyForPermissions()
                     } else {
-                        askNicelyForPermissions {
-                            startActivityForResult(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                                data = Uri.fromParts("package", packageName, null)
-                            }, SETTINGS_ACTIVITY_CODE)
-                        }
+                        askNicelyForPermissions { navigateToSettings() }
                     }
                 }
             }
             else -> throw IllegalArgumentException("Invalid request code!")
         }
     }
+
+    private fun navigateToSettings() =
+        startActivityForResult(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", packageName, null)
+        }, SETTINGS_ACTIVITY_CODE)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
