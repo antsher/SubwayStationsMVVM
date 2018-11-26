@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.helpers.hideSoftKeyboard
 import com.stazis.subwaystationsmvvm.helpers.showSoftKeyboard
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.floatingActionButton
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalEditTextWithFont
 import org.jetbrains.anko.*
 
 @SuppressLint("ViewConstructor")

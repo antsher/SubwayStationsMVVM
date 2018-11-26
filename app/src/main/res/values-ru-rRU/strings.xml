@@ -18,4 +18,6 @@
     <string name="name">Имя:</string>
     <string name="message">Сообщение:</string>
     <string name="next">Далее</string>
+    <string name="permissions_denied">Отказ в доступе</string>
+    <string name="cannot_run_without_location_permissions">Приложение не может работать без доступа к Вашему местоположению. Пожалуйста, разрешите его</string>
 </resources>

@@ -44,8 +44,8 @@ class GeneralActivity : AppCompatActivity() {
     }
 
     private fun askNicelyForPermissions() = AlertDialog.Builder(this)
-        .setTitle("Permission denied")
-        .setMessage("The app cannot run without location permissions. Please, grant them")
+        .setTitle(resources.getString(R.string.permissions_denied))
+        .setMessage(resources.getString(R.string.cannot_run_without_location_permissions))
         .setNeutralButton("OK") { dialog, _ ->
             dialog.dismiss()
             requestPermission(this, locationPermission)

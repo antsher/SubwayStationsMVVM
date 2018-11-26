@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.stazis.subwaystationsmvvm.R
-import com.stazis.subwaystationsmvvm.presentation.view.common.inputView
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.inputView
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.UI
 

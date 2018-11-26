@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import com.stazis.subwaystationsmvvm.presentation.view.common.stationViewPager
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.stationViewPager
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.support.v4.UI
 

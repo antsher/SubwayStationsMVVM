@@ -8,7 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.viewPager
 
@@ -54,7 +54,6 @@ class StationViewPager(context: Context) : _LinearLayout(context) {
     }
 
     fun initialize(fragmentManager: FragmentManager, stations: List<Station>, location: LatLng) {
-        val pager = findViewById<ViewPager>(R.id.stationViewPagerPager)
         pager.adapter = StationPagerAdapter(fragmentManager, stations, location)
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}

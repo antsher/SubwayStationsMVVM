@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.LinearLayout
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
-import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.normalTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalTextViewWithFont
 import org.jetbrains.anko.*
 
 @SuppressLint("ViewConstructor")
@@ -79,9 +79,11 @@ class AnimatedStationWidget(
 
     private fun restoreExpanded() {
         if (expanded) {
-            hiddenView.visibility = VISIBLE
-            hiddenView.alpha = 1f
-            hiddenView.translationY = 0f
+            with(hiddenView) {
+                visibility = VISIBLE
+                alpha = 1f
+                translationY = 0f
+            }
         }
     }
 

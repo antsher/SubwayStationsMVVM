@@ -5,6 +5,8 @@ import android.content.Context
 import android.os.Parcelable
 import android.text.InputType
 import android.view.View
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalEditTextWithFont
 import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.matchParent

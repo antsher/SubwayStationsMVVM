@@ -10,7 +10,7 @@ abstract class BaseViewModel : ViewModel() {
 
     private val viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    val isLoading = MutableLiveData<Boolean>()
+    val loading = MutableLiveData<Boolean>()
     val message = MutableLiveData<String>()
 
     override fun onCleared() {

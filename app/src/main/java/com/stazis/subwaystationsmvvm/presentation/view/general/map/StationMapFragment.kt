@@ -19,8 +19,9 @@ import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
-import com.stazis.subwaystationsmvvm.presentation.view.common.floatingActionButton
-import com.stazis.subwaystationsmvvm.presentation.view.common.mapView
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.floatingActionButton
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.getAsyncAndExecute
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.mapView
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
@@ -53,8 +54,8 @@ class StationMapFragment : BaseFragment() {
         map.onCreate(savedInstanceState)
         bindViewModel()
         if (savedInstanceState == null) {
-            map.getMapAsync { googleMap ->
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(53.9086154, 27.5735358), 10.5f))
+            map.getAsyncAndExecute {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(53.9086154, 27.5735358), 10.5f))
             }
         }
     }
@@ -84,9 +85,9 @@ class StationMapFragment : BaseFragment() {
         }
 
     private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) =
-        map.getMapAsync { googleMap ->
-            googleMap.setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
-            markers.forEach { googleMap.addMarker(it) }
+        map.getAsyncAndExecute {
+            setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
+            markers.forEach { addMarker(it) }
         }
 
     private fun navigateToStationInfo(name: String) =

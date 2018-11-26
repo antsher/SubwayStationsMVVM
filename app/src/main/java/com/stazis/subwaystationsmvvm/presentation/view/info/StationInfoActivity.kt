@@ -4,7 +4,11 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.stazis.subwaystationsmvvm.R
-import com.stazis.subwaystationsmvvm.presentation.view.common.*
+import com.stazis.subwaystationsmvvm.presentation.view.common.BaseActivity
+import com.stazis.subwaystationsmvvm.presentation.view.common.EditableTextView
+import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.editableTextView
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.freezingTextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.vm.StationInfoViewModel
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.matchParent

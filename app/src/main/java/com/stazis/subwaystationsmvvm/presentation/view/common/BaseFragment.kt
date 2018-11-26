@@ -23,7 +23,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun bindViewModel() {
-        vm.isLoading.observe(this, Observer(this::showBoundProgressBar))
+        vm.loading.observe(this, Observer(this::showBoundProgressBar))
         vm.message.observe(this, Observer(this::showBoundDialog))
     }
 

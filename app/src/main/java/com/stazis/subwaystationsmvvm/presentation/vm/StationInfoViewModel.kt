@@ -23,7 +23,7 @@ class StationInfoViewModel(
     val stationDistance = MutableLiveData<Int>()
 
     init {
-        isLoading.value = true
+        loading.value = true
         uiScope.launch {
             delay(1000)
             getDetailedStationAndLocation()
@@ -46,11 +46,11 @@ class StationInfoViewModel(
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
-        isLoading.value = false
+        loading.value = false
     }
 
     fun onDescriptionUpdated(description: String) {
-        isLoading.value = true
+        loading.value = true
         uiScope.launch {
             delay(1000)
             updateStationDescription(description)
@@ -64,6 +64,6 @@ class StationInfoViewModel(
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
-        isLoading.value = false
+        loading.value = false
     }
 }

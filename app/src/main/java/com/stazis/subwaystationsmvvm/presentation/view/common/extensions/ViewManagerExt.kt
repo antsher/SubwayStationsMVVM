@@ -1,9 +1,13 @@
-package com.stazis.subwaystationsmvvm.presentation.view.common
+package com.stazis.subwaystationsmvvm.presentation.view.common.extensions
 
 import android.view.ViewManager
 import com.google.android.gms.maps.MapView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.stazis.subwaystationsmvvm.R
+import com.stazis.subwaystationsmvvm.presentation.view.common.EditTextWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.EditableTextView
+import com.stazis.subwaystationsmvvm.presentation.view.common.InputView
+import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationViewPager
 import org.jetbrains.anko.custom.ankoView
 

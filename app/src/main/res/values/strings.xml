@@ -17,4 +17,6 @@
     <string name="name">Name:</string>
     <string name="message">Message:</string>
     <string name="next">Next</string>
+    <string name="permissions_denied">Permissions denied</string>
+    <string name="cannot_run_without_location_permissions">The app cannot run without location permissions. Please, grant them</string>
 </resources>

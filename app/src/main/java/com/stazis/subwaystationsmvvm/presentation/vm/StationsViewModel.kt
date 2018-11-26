@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.stazis.subwaystationsmvvm.helpers.LocationHelper
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.model.repositories.StationRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class StationsViewModel(private val repository: StationRepository, private val locationHelper: LocationHelper) :
     BaseViewModel() {
@@ -13,7 +14,7 @@ class StationsViewModel(private val repository: StationRepository, private val l
     val stationsAndLocation = MutableLiveData<Pair<List<Station>, Location>>()
 
     init {
-        isLoading.value = true
+        loading.value = true
         uiScope.launch {
             delay(1000)
             updateStations()
@@ -26,6 +27,6 @@ class StationsViewModel(private val repository: StationRepository, private val l
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
         }
-        isLoading.value = false
+        loading.value = false
     }
 }

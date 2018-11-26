@@ -18,7 +18,7 @@ import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
-import com.stazis.subwaystationsmvvm.presentation.view.common.floatingActionButton
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.floatingActionButton
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
@@ -59,7 +59,7 @@ class StationListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViewModel()
-        if (savedInstanceState !== null && savedInstanceState.containsKey(STATES_KEY)) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(STATES_KEY)) {
             states = savedInstanceState.getSerializable(STATES_KEY) as HashMap<String, Boolean>
         }
     }
@@ -79,11 +79,10 @@ class StationListFragment : BaseFragment() {
     }
 
     private fun initStationViews(stationsAndLocation: Pair<List<Station>, Location>) = stationsAndLocation.first.map {
-        val distanceBetweenUserAndStationLocations = SphericalUtil.computeDistanceBetween(
+        it to SphericalUtil.computeDistanceBetween(
             LatLng(it.latitude, it.longitude),
             stationsAndLocation.second.toLatLng()
         ).roundToInt()
-        it to distanceBetweenUserAndStationLocations
     }.sortedBy { it.second }.map {
         AnimatedStationWidget(context!!, states[it.first.name] ?: false, it.first, it.second) {
             navigateToStationInfo(it.first.name)

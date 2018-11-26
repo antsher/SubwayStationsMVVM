@@ -10,8 +10,8 @@ import com.google.maps.android.SphericalUtil
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.bigTextViewWithFont
-import com.stazis.subwaystationsmvvm.presentation.view.common.normalTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalTextViewWithFont
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.verticalLayout
