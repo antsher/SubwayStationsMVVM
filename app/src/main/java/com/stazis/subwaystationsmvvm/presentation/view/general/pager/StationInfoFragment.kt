@@ -12,6 +12,7 @@ import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.TextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalTextViewWithFont
+import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.setPaddingPartly
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.verticalLayout
@@ -39,7 +40,7 @@ class StationInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = UI {
         verticalLayout {
-            setPaddingRelative(dip(10), dip(10), dip(10), paddingBottom)
+            setPaddingPartly(dip(10), dip(10), dip(10))
             latitude = normalTextViewWithFont("Montserrat-Regular") {
                 text = resources.getString(R.string.latitude)
             }.lparams {
