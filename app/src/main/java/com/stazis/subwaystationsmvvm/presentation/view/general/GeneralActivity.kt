@@ -1,7 +1,6 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -19,8 +18,6 @@ import com.stazis.subwaystationsmvvm.helpers.checkPermissionState
 import com.stazis.subwaystationsmvvm.helpers.requestPermission
 import kotlinx.android.synthetic.main.activity_general.*
 
-
-@SuppressLint("MissingPermission")
 class GeneralActivity : AppCompatActivity() {
 
     companion object {
