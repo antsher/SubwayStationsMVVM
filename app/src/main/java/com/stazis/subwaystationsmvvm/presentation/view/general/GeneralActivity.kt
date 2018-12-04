@@ -12,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.stazis.subwaystationsmvvm.R
 import com.stazis.subwaystationsmvvm.helpers.PermissionState
 import com.stazis.subwaystationsmvvm.helpers.checkPermissionState
 import com.stazis.subwaystationsmvvm.helpers.requestPermission
-import kotlinx.android.synthetic.main.activity_general.*
-
 
 @SuppressLint("MissingPermission")
 class GeneralActivity : AppCompatActivity() {
@@ -35,7 +34,8 @@ class GeneralActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general)
-        bottomNavigation.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        findViewById<BottomNavigationView>(R.id.bottomNavigation)
+            .setupWithNavController(findNavController(R.id.nav_host_fragment))
         requestPermissionsIfNecessary()
     }
 
