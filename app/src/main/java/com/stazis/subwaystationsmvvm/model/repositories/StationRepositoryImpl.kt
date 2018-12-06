@@ -27,15 +27,12 @@ class StationRepositoryImpl(
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    override suspend fun getStations(): List<Station> = if (preferencesHelper.retrieveBoolean(DATA_IN_FIRESTORE_KEY)) {
-        getStationsFromFirestore()
-    } else {
-        if (connectionHelper.isOnline()) {
-            getStationsFromServer()
+    override suspend fun getStations(): List<Station> =
+        if (preferencesHelper.retrieveBoolean(DATA_IN_FIRESTORE_KEY)) {
+            getStationsFromFirestore()
         } else {
-            throw ConnectException("No internet connection is present, and local database is empty")
+            getStationsFromServer()
         }
-    }
 
     private suspend fun getStationsFromServer(): List<Station> =
         stationService.getStations().await().correctStations().apply {
@@ -48,39 +45,45 @@ class StationRepositoryImpl(
         firestore.collection(STATION_BASIC_INFO_COLLECTION_NAME).document(it.name).set(it)
     }
 
-    private fun createAdvancedStationsCollectionInFirestore(stations: List<Station>) = stations.forEach {
-        firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME).document(it.name).set(mapOf("description" to ""))
-    }
+    private fun createAdvancedStationsCollectionInFirestore(stations: List<Station>) =
+        stations.forEach {
+            firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME).document(it.name)
+                .set(mapOf("description" to ""))
+        }
 
     private suspend fun getStationsFromFirestore(): List<Station> = suspendCoroutine {
-        firestore.collection(STATION_BASIC_INFO_COLLECTION_NAME).get().addOnCompleteListener { task ->
-            if (task.isSuccessful && !task.result!!.isEmpty) {
-                it.resume(task.result!!.toObjects(Station::class.java))
-            } else {
-                it.resumeWithException(task.exception!!)
+        firestore.collection(STATION_BASIC_INFO_COLLECTION_NAME).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && !task.result!!.isEmpty) {
+                    it.resume(task.result!!.toObjects(Station::class.java))
+                } else {
+                    it.resumeWithException(task.exception!!)
+                }
             }
-        }
     }
 
     override suspend fun getStationBasicInfo(name: String): Station = suspendCoroutine {
-        firestore.collection(STATION_BASIC_INFO_COLLECTION_NAME).document(name).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                it.resume(task.result!!.toObject(Station::class.java)!!)
-            } else {
-                it.resumeWithException(task.exception!!)
+        firestore.collection(STATION_BASIC_INFO_COLLECTION_NAME).document(name).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    it.resume(task.result!!.toObject(Station::class.java)!!)
+                } else {
+                    it.resumeWithException(task.exception!!)
+                }
             }
-        }
     }
 
-    override suspend fun getStationDetailedInfo(name: String): StationDetailedInfo = suspendCoroutine {
-        firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME).document(name).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                it.resume(task.result!!.toObject(StationDetailedInfo::class.java)!!)
-            } else {
-                it.resumeWithException(task.exception!!)
-            }
+    override suspend fun getStationDetailedInfo(name: String): StationDetailedInfo =
+        suspendCoroutine {
+            firestore.collection(STATION_DETAILED_INFO_COLLECTION_NAME).document(name).get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        it.resume(task.result!!.toObject(StationDetailedInfo::class.java)!!)
+                    } else {
+                        it.resumeWithException(task.exception!!)
+                    }
+                }
         }
-    }
 
     override suspend fun updateStationDescription(name: String, description: String): String =
         if (connectionHelper.isOnline()) {

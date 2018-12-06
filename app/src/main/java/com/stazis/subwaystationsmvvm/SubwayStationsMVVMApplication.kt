@@ -12,11 +12,14 @@ import com.stazis.subwaystationsmvvm.model.repositories.StationRepositoryImpl
 import com.stazis.subwaystationsmvvm.model.services.StationService
 import com.stazis.subwaystationsmvvm.presentation.vm.StationInfoViewModel
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
+import com.stazis.subwaystationsmvvm.util.exceptions.ConnectionException
+import okhttp3.OkHttpClient
 import org.koin.android.ext.android.startKoin
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class SubwayStationsMVVMApplication : Application() {
 
@@ -26,12 +29,26 @@ class SubwayStationsMVVMApplication : Application() {
         single { PreferencesHelper(get()) }
 
         single {
-            Retrofit.Builder()
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create(Gson()))
-                .baseUrl("https://my-json-server.typicode.com/BeeWhy/metro/")
+            OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    if (get<ConnectionHelper>().isOnline()) {
+                        chain.proceed(chain.request())
+                    } else {
+                        throw ConnectionException("The internet connection appears to be offline")
+                    }
+                }
                 .build()
         }
+
+        single {
+            Retrofit.Builder()
+                .baseUrl("https://my-json-server.typicode.com/BeeWhy/metro/")
+                .client(get())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create(Gson()))
+                .build()
+        }
+
         single<StationRepository> {
             StationRepositoryImpl(get<Retrofit>().create(StationService::class.java), get(), get())
         }
