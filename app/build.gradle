@@ -54,7 +54,6 @@ dependencies {
     // Androidx
     implementation "com.google.android.material:material:$androidx_version"
     implementation "androidx.core:core-ktx:$androidx_version"
-    implementation "androidx.fragment:fragment-ktx:$androidx_version"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
