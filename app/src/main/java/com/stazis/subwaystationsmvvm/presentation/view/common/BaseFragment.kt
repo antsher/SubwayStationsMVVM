@@ -19,7 +19,8 @@ abstract class BaseFragment : Fragment() {
     open lateinit var root: ViewGroup
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        progressBar = layoutInflater.inflate(R.layout.view_progress_bar, root, false).apply { root.addView(this) }
+        progressBar = layoutInflater.inflate(R.layout.view_progress_bar, root, false)
+            .apply { root.addView(this) }
     }
 
     open fun bindViewModel() {
