@@ -52,8 +52,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 
     // Androidx
-    implementation "com.google.android.material:material:$androidx_version"
-    implementation "androidx.core:core-ktx:$androidx_version"
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.1'
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -65,7 +65,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation 'com.google.firebase:firebase-firestore:17.1.4'
+    implementation 'com.google.firebase:firebase-firestore:17.1.5'
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"
