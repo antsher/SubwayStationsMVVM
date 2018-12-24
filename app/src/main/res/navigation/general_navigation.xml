@@ -7,11 +7,26 @@
         android:name="com.stazis.subwaystationsmvvm.presentation.view.general.home.HomeFragment" />
     <fragment
         android:id="@+id/station_map_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.map.StationMapFragment">
+        <action
+            android:id="@+id/navigateToPager"
+            app:destination="@+id/station_pager_dest" />
+    </fragment>
     <fragment
         android:id="@+id/station_list_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.list.StationListFragment">
+        <action
+            android:id="@+id/navigateToPager"
+            app:destination="@+id/station_pager_dest" />
+    </fragment>
     <fragment
         android:id="@+id/station_pager_dest"
-        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment" />
+        android:name="com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment">
+        <argument
+            android:name="stations"
+            app:argType="com.stazis.subwaystationsmvvm.model.entities.Station[]" />
+        <argument
+            android:name="location"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
+    </fragment>
 </navigation>

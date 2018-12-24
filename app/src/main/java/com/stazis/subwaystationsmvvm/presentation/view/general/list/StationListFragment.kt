@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.forEach
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,8 +18,6 @@ import com.stazis.subwaystationsmvvm.extensions.toLatLng
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.floatingActionButton
-import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
-import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import org.jetbrains.anko.*
@@ -72,11 +69,16 @@ class StationListFragment : BaseFragment() {
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addStationViewsToContainer(initStationViews(stationsAndLocation))
         navigateToPager.setOnClickListener {
-            findNavController().navigate(R.id.station_pager_dest, with(stationsAndLocation) {
-                bundleOf(STATIONS_KEY to first, LOCATION_KEY to second.toLatLng())
-            })
+            with(stationsAndLocation) {
+                findNavController().navigate(
+                    StationListFragmentDirections.navigateToPager(first.toTypedArray(), second.toLatLng())
+                )
+            }
         }
     }
+
+    private fun addStationViewsToContainer(stationViewsWithDistances: List<AnimatedStationWidget>) =
+        stationViewsWithDistances.forEach { stationsContainer.addView(it) }
 
     private fun initStationViews(stationsAndLocation: Pair<List<Station>, Location>) = stationsAndLocation.first.map {
         it to SphericalUtil.computeDistanceBetween(
@@ -91,9 +93,6 @@ class StationListFragment : BaseFragment() {
 
     private fun navigateToStationInfo(name: String) =
         startActivity(Intent(context, StationInfoActivity::class.java).putExtra(StationInfoActivity.NAME_KEY, name))
-
-    private fun addStationViewsToContainer(stationViewsWithDistances: List<AnimatedStationWidget>) =
-        stationViewsWithDistances.forEach { stationsContainer.addView(it) }
 
     override fun onSaveInstanceState(outState: Bundle) {
         stationsContainer.forEach { (it as AnimatedStationWidget).run { states[this.stationName] = expanded } }

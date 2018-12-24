@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,8 +21,6 @@ import com.stazis.subwaystationsmvvm.presentation.view.common.BaseFragment
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.floatingActionButton
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.getAsyncAndExecute
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.mapView
-import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.LOCATION_KEY
-import com.stazis.subwaystationsmvvm.presentation.view.general.pager.StationPagerFragment.Companion.STATIONS_KEY
 import com.stazis.subwaystationsmvvm.presentation.view.info.StationInfoActivity
 import com.stazis.subwaystationsmvvm.presentation.vm.StationsViewModel
 import org.jetbrains.anko.*
@@ -68,11 +65,19 @@ class StationMapFragment : BaseFragment() {
     private fun updateUI(stationsAndLocation: Pair<List<Station>, Location>) {
         addMarkersToMapAndSetListeners(initMarkers(stationsAndLocation))
         navigateToPager.setOnClickListener {
-            findNavController().navigate(R.id.station_pager_dest, with(stationsAndLocation) {
-                bundleOf(STATIONS_KEY to first, LOCATION_KEY to second.toLatLng())
-            })
+            with(stationsAndLocation) {
+                findNavController().navigate(
+                    StationMapFragmentDirections.navigateToPager(first.toTypedArray(), second.toLatLng())
+                )
+            }
         }
     }
+
+    private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) =
+        map.getAsyncAndExecute {
+            setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
+            markers.forEach { addMarker(it) }
+        }
 
     private fun initMarkers(stationsAndLocation: Pair<List<Station>, Location>) =
         stationsAndLocation.first.map {
@@ -82,12 +87,6 @@ class StationMapFragment : BaseFragment() {
             MarkerOptions().position(stationLocation)
                 .title(it.name)
                 .snippet("$distanceToStation${resources.getString(R.string.meter_short)}")
-        }
-
-    private fun addMarkersToMapAndSetListeners(markers: List<MarkerOptions>) =
-        map.getAsyncAndExecute {
-            setOnInfoWindowClickListener { marker -> navigateToStationInfo(marker.title) }
-            markers.forEach { addMarker(it) }
         }
 
     private fun navigateToStationInfo(name: String) =
