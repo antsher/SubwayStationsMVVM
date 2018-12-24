@@ -61,7 +61,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_version"
 
     // Crashlytics
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.6'
