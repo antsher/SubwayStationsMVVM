@@ -6,6 +6,7 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import com.stazis.subwaystationsmvvm.R
+import com.stazis.subwaystationsmvvm.extensions.setListener
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.bigTextViewWithFont
 import com.stazis.subwaystationsmvvm.presentation.view.common.extensions.normalTextViewWithFont
@@ -112,22 +113,13 @@ class AnimatedStationWidget(
         .alpha(1f)
         .translationY(0f)
         .setDuration(ANIMATION_DURATION)
-        .setListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                hiddenView.visibility = VISIBLE
-                animationInProgress = true
-                expanded = true
-            }
-
-            override fun onAnimationEnd(animation: Animator) {
-                animationInProgress = false
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
-        .start()
+        .setListener(onStart = {
+            hiddenView.visibility = VISIBLE
+            animationInProgress = true
+            expanded = true
+        }, onEnd = {
+            animationInProgress = false
+        }).start()
 
     private fun collapse() = hiddenView.animate()
         .alpha(0f)
