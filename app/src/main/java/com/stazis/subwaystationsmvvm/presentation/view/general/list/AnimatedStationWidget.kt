@@ -35,47 +35,60 @@ class AnimatedStationWidget(
         restoreExpanded()
     }
 
-    private fun initUI(station: Station, stationDistance: Int, onClicked: () -> Unit) = relativeLayout {
-        verticalLayout {
-            bigTextViewWithFont("Montserrat-SemiBold") {
-                text = stationName
-            }.lparams {
-                topMargin = dip(10)
-            }
-            normalTextViewWithFont("Montserrat-Light") {
-                text = String.format("%d%s", stationDistance, resources.getString(R.string.meter_short))
-            }.lparams {
-                topMargin = dip(5)
-            }
-            hiddenView = verticalLayout {
-                alpha = 0f
-                translationY = dip(-50).toFloat()
-                visibility = View.GONE
-                normalTextViewWithFont("Montserrat-Italic") {
-                    text = String.format("%s %f", resources.getString(R.string.latitude), station.latitude)
+    private fun initUI(station: Station, stationDistance: Int, onClicked: () -> Unit) =
+        relativeLayout {
+            verticalLayout {
+                bigTextViewWithFont("Montserrat-SemiBold") {
+                    text = stationName
                 }.lparams {
-                    bottomMargin = dip(5)
+                    topMargin = dip(10)
                 }
-                normalTextViewWithFont("Montserrat-Italic") {
-                    text = String.format("%s %f", resources.getString(R.string.longitude), station.longitude)
+                normalTextViewWithFont("Montserrat-Light") {
+                    text = String.format(
+                        "%d%s",
+                        stationDistance,
+                        resources.getString(R.string.meter_short)
+                    )
+                }.lparams {
+                    topMargin = dip(5)
+                }
+                hiddenView = verticalLayout {
+                    alpha = 0f
+                    translationY = dip(-50).toFloat()
+                    visibility = View.GONE
+                    normalTextViewWithFont("Montserrat-Italic") {
+                        text = String.format(
+                            "%s %f",
+                            resources.getString(R.string.latitude),
+                            station.latitude
+                        )
+                    }.lparams {
+                        bottomMargin = dip(5)
+                    }
+                    normalTextViewWithFont("Montserrat-Italic") {
+                        text = String.format(
+                            "%s %f",
+                            resources.getString(R.string.longitude),
+                            station.longitude
+                        )
+                    }
+                }.lparams(matchParent) {
+                    topMargin = dip(10)
                 }
             }.lparams(matchParent) {
-                topMargin = dip(10)
+                marginStart = dip(15)
+                bottomMargin = dip(5)
+                startOf(R.id.animatedStationWidgetSwitchState)
             }
-        }.lparams(matchParent) {
-            marginStart = dip(15)
-            bottomMargin = dip(5)
-            startOf(R.id.animatedStationWidgetSwitchState)
-        }
-        imageView {
-            id = R.id.animatedStationWidgetSwitchState
-            contentDescription = resources.getString(R.string.expand_info)
-            padding = dip(10)
-            imageResource = R.drawable.ic_arrow_bottom
-        }.lparams(dip(68), dip(68)) {
-            alignParentEnd()
-        }.setOnClickListener { switchState() }
-    }.setOnClickListener { onClicked() }
+            imageView {
+                id = R.id.animatedStationWidgetSwitchState
+                contentDescription = resources.getString(R.string.expand_info)
+                padding = dip(10)
+                imageResource = R.drawable.ic_arrow_bottom
+            }.lparams(dip(68), dip(68)) {
+                alignParentEnd()
+            }.setOnClickListener { switchState() }
+        }.setOnClickListener { onClicked() }
 
     private fun restoreExpanded() {
         if (expanded) {
@@ -88,17 +101,11 @@ class AnimatedStationWidget(
     }
 
     private fun switchState() = ifNotAnimationInProgress {
-        if (expanded) {
-            collapse()
-        } else {
-            expand()
-        }
+        if (expanded) collapse() else expand()
     }
 
     private inline fun ifNotAnimationInProgress(f: () -> Unit) {
-        if (!animationInProgress) {
-            f()
-        }
+        if (!animationInProgress) f()
     }
 
     private fun expand() = hiddenView.animate()

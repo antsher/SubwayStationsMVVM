@@ -91,18 +91,12 @@ class EditableTextView(context: Context, private val onTextUpdated: (String) -> 
 
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (s.toString() != savedText) {
-                        save.show()
-                    } else {
-                        save.hide()
-                    }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = with(save) {
+                    if (s.toString() != savedText) show() else hide()
                 }
             })
             setOnClickListener {
-                if (!inEditMode) {
-                    enableEditMode()
-                }
+                if (!inEditMode) enableEditMode()
             }
         }
         coverView.setOnTouchListener { _, _ -> !active }
@@ -151,9 +145,7 @@ class EditableTextView(context: Context, private val onTextUpdated: (String) -> 
         savedText = state.savedText
         if (state.editModeEnabled) {
             enableEditMode()
-            if (state.saveShown) {
-                save.show()
-            }
+            if (state.saveShown) save.show()
         } else {
             disableEditMode()
         }
