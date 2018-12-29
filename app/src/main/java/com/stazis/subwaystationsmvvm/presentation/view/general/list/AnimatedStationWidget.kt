@@ -1,6 +1,5 @@
 package com.stazis.subwaystationsmvvm.presentation.view.general.list
 
-import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
@@ -113,33 +112,30 @@ class AnimatedStationWidget(
         .alpha(1f)
         .translationY(0f)
         .setDuration(ANIMATION_DURATION)
-        .setListener(onEnd = {
-            animationInProgress = false
-        }, onStart = {
-            hiddenView.visibility = VISIBLE
-            animationInProgress = true
-            expanded = true
-        })
+        .setListener(
+            onEnd = {
+                animationInProgress = false
+            }, onStart = {
+                hiddenView.visibility = VISIBLE
+                animationInProgress = true
+                expanded = true
+            }
+        )
         .start()
 
     private fun collapse() = hiddenView.animate()
         .alpha(0f)
         .translationY(-50 * dpRatio)
         .setDuration(ANIMATION_DURATION)
-        .setListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
+        .setListener(
+            onEnd = {
+                animationInProgress = false
+                hiddenView.visibility = GONE
+            },
+            onStart = {
                 animationInProgress = true
                 expanded = false
             }
-
-            override fun onAnimationEnd(animation: Animator) {
-                animationInProgress = false
-                hiddenView.visibility = GONE
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
+        )
         .start()
 }
