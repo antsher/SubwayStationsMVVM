@@ -113,13 +113,14 @@ class AnimatedStationWidget(
         .alpha(1f)
         .translationY(0f)
         .setDuration(ANIMATION_DURATION)
-        .setListener(onStart = {
+        .setListener(onEnd = {
+            animationInProgress = false
+        }, onStart = {
             hiddenView.visibility = VISIBLE
             animationInProgress = true
             expanded = true
-        }, onEnd = {
-            animationInProgress = false
-        }).start()
+        })
+        .start()
 
     private fun collapse() = hiddenView.animate()
         .alpha(0f)
