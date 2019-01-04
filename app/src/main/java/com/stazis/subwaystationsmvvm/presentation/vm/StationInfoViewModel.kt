@@ -35,13 +35,15 @@ class StationInfoViewModel(
         val detailedInfo = repository.getStationDetailedInfo(name)
         val location = locationHelper.getLocation()
         try {
-            stationName.value = basicInfo.name
-            stationLatitude.value = basicInfo.latitude
-            stationLongitude.value = basicInfo.longitude
-            stationDistance.value = SphericalUtil.computeDistanceBetween(
-                LatLng(basicInfo.latitude, basicInfo.longitude),
-                location.toLatLng()
-            ).roundToInt()
+            with(basicInfo) {
+                stationName.value = name
+                stationLatitude.value = latitude
+                stationLongitude.value = longitude
+                stationDistance.value = SphericalUtil.computeDistanceBetween(
+                    LatLng(latitude, longitude),
+                    location.toLatLng()
+                ).roundToInt()
+            }
             stationDescription.value = detailedInfo.description
         } catch (error: Throwable) {
             message.value = error.message ?: "Unknown error!!!"
