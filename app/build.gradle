@@ -47,6 +47,10 @@ android {
     lintOptions {
         lintConfig file("$projectDir/lint.xml")
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -98,6 +102,7 @@ dependencies {
 
     // Testing
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
