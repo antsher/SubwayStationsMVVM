@@ -2,6 +2,7 @@ package com.stazis.subwaystationsmvvm.extensions
 
 import com.stazis.subwaystationsmvvm.model.entities.Station
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StationExtKtTest {
@@ -20,5 +21,5 @@ class StationExtKtTest {
 
     @Test
     fun `stationHasCorrectCoordinates IfBothCorrect ReturnsTrue`() =
-        assert(Station("Уручча", 53.9453522, 27.687875).hasCorrectCoordinates())
+        assertTrue(Station("Уручча", 53.9453522, 27.687875).hasCorrectCoordinates())
 }
