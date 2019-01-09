@@ -7,7 +7,7 @@ import org.junit.Test
 class StationListExtKtTest {
 
     @Test
-    fun stationListCorrectStations_ifAllIncorrect_returnsEmptyList() {
+    fun `stationListCorrectStations IfAllIncorrect ReturnsEmptyList`() {
         val listOfIncorrectStations = listOf(
             Station("Уручча", 0.0, 27.687875),
             Station("Уручча", 27.687875, 0.0)
@@ -16,7 +16,7 @@ class StationListExtKtTest {
     }
 
     @Test
-    fun stationListCorrectStations_ifSomeIncorrect_returnsCorrectList() {
+    fun `stationListCorrectStations IfSomeIncorrect ReturnsCorrectList`() {
         val listWithSomeIncorrectStations = listOf(
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 0.0, 27.687875),
@@ -33,7 +33,7 @@ class StationListExtKtTest {
     }
 
     @Test
-    fun stationListCorrectStations_ifAllCorrect_returnsSameList() {
+    fun `stationListCorrectStations IfAllCorrect ReturnsSameList`() {
         val listOfCorrectStations = listOf(
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 53.9453522, 27.687875),

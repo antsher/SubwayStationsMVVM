@@ -7,18 +7,18 @@ import org.junit.Test
 class StationExtKtTest {
 
     @Test
-    fun stationHasCorrectCoordinates_ifBothIncorrect_returnsFalse() =
+    fun `stationHasCorrectCoordinates IfBothIncorrect ReturnsFalse`() =
         assertFalse(Station("Уручча", 0.0, 0.0).hasCorrectCoordinates())
 
     @Test
-    fun stationHasCorrectCoordinates_ifLatitudeIncorrect_returnsFalse() =
+    fun `stationHasCorrectCoordinates IfLatitudeIncorrect ReturnsFalse`() =
         assertFalse(Station("Уручча", 0.0, 27.687875).hasCorrectCoordinates())
 
     @Test
-    fun stationHasCorrectCoordinates_ifLongitudeIncorrect_returnsFalse() =
+    fun `stationHasCorrectCoordinates IfLongitudeIncorrect ReturnsFalse`() =
         assertFalse(Station("Уручча", 53.9453522, 0.0).hasCorrectCoordinates())
 
     @Test
-    fun stationHasCorrectCoordinates_ifBothCorrect_returnsTrue() =
+    fun `stationHasCorrectCoordinates IfBothCorrect ReturnsTrue`() =
         assert(Station("Уручча", 53.9453522, 27.687875).hasCorrectCoordinates())
 }
