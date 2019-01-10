@@ -57,3 +57,5 @@ val vmModule = module {
     viewModel { create<StationsViewModel>() }
     viewModel { (name: String) -> StationInfoViewModel(name, get(), get()) }
 }
+
+fun getKoinModules() = listOf(helpersModule, networkModule, repositoryModule, vmModule)
