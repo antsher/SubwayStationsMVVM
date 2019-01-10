@@ -18,13 +18,13 @@ import org.koin.experimental.builder.create
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val helpersModule = module {
+private val helpersModule = module {
     single { create<LocationHelper>() }
     single { create<ConnectionHelper>() }
     single { create<PreferencesHelper>() }
 }
 
-val networkModule = module {
+private val networkModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor { chain ->
@@ -47,13 +47,13 @@ val networkModule = module {
     }
 }
 
-val repositoryModule = module {
+private val repositoryModule = module {
     single<StationRepository> {
         StationRepositoryImpl(get<Retrofit>().create(StationService::class.java), get(), get())
     }
 }
 
-val vmModule = module {
+private val vmModule = module {
     viewModel { create<StationsViewModel>() }
     viewModel { (name: String) -> StationInfoViewModel(name, get(), get()) }
 }

@@ -1,7 +1,7 @@
 package com.stazis.subwaystationsmvvm.model.repositories
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.stazis.subwaystationsmvvm.extensions.correctStations
+import com.stazis.subwaystationsmvvm.extensions.getCorrectStations
 import com.stazis.subwaystationsmvvm.helpers.ConnectionHelper
 import com.stazis.subwaystationsmvvm.helpers.PreferencesHelper
 import com.stazis.subwaystationsmvvm.model.entities.Station
@@ -35,7 +35,7 @@ class StationRepositoryImpl(
         }
 
     private suspend fun getStationsFromServer(): List<Station> =
-        stationService.getStations().await().correctStations().apply {
+        stationService.getStations().await().getCorrectStations().apply {
             postBasicStationsToFirestore(this)
             createAdvancedStationsCollectionInFirestore(this)
             preferencesHelper.saveBoolean(DATA_IN_FIRESTORE_KEY, true)
