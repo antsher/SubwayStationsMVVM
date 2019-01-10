@@ -7,16 +7,16 @@ import org.junit.Test
 class StationListExtKtTest {
 
     @Test
-    fun `stationListCorrectStations IfAllIncorrect ReturnsEmptyList`() {
+    fun `getCorrectStations IfAllIncorrect ReturnsEmptyList`() {
         val listOfIncorrectStations = listOf(
             Station("Уручча", 0.0, 27.687875),
             Station("Уручча", 27.687875, 0.0)
         )
-        assertEquals(listOfIncorrectStations.correctStations(), emptyList<Station>())
+        assertEquals(listOfIncorrectStations.getCorrectStations(), emptyList<Station>())
     }
 
     @Test
-    fun `stationListCorrectStations IfSomeIncorrect ReturnsCorrectList`() {
+    fun `getCorrectStations IfSomeIncorrect ReturnsCorrectList`() {
         val listWithSomeIncorrectStations = listOf(
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 0.0, 27.687875),
@@ -29,16 +29,16 @@ class StationListExtKtTest {
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 53.9453522, 27.687875)
         )
-        assertEquals(listWithSomeIncorrectStations.correctStations(), listOfCorrectStations)
+        assertEquals(listWithSomeIncorrectStations.getCorrectStations(), listOfCorrectStations)
     }
 
     @Test
-    fun `stationListCorrectStations IfAllCorrect ReturnsSameList`() {
+    fun `getCorrectStations IfAllCorrect ReturnsSameList`() {
         val listOfCorrectStations = listOf(
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 53.9453522, 27.687875),
             Station("Уручча", 53.9453522, 27.687875)
         )
-        assertEquals(listOfCorrectStations.correctStations(), listOfCorrectStations)
+        assertEquals(listOfCorrectStations.getCorrectStations(), listOfCorrectStations)
     }
 }
