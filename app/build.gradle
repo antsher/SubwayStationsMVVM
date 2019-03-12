@@ -72,7 +72,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-firestore:18.0.1'
+    implementation 'com.google.firebase:firebase-firestore:18.1.0'
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"
