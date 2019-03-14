@@ -9,8 +9,8 @@ buildscript {
     dependencies {
         classpath ("com.android.tools.build:gradle:3.3.2")
         classpath ("com.google.gms:google-services:4.2.0")
-        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:${Deps.kotlin_version}")
-        classpath ("android.arch.navigation:navigation-safe-args-gradle-plugin:${Deps.navigation_version}")
+        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:${Deps.kotlinVersion}")
+        classpath ("android.arch.navigation:navigation-safe-args-gradle-plugin:${Deps.navigationVersion}")
         classpath ("io.fabric.tools:gradle:1.26.1")
         classpath ("com.dicedmelon.gradle:jacoco-android:0.1.2")
     }
